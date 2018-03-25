@@ -7,7 +7,6 @@
 #define OUTFILEARG 2
 
 int countWords(const char *sentence);
-void removeExtraSpaces(char *input);
 
 int main(int argc, char *argv[]){
 
@@ -29,10 +28,10 @@ int main(int argc, char *argv[]){
 		exit(1);
 	}
 
-	char **holdWords = NULL, *holdLine = NULL, *holdText = NULL,
+	char *holdWord = NULL, *holdLine = NULL, *holdText = NULL,
 		 *lineToken = NULL, *wordToken = NULL;
 	size_t size = 0;
-	int totalStrings, lineNumber = 1;
+	int totalStrings, i = 0, lineNumber = 1;
 
 	/* Count char total in input file and allocate size in holdText. */
 	fseek(fin, 0, SEEK_END); /* Bring pointer to end of input file */
@@ -43,8 +42,7 @@ int main(int argc, char *argv[]){
 	holdText = malloc((size + 1) * sizeof(*holdText));
 	fread(holdText, size, 1, fin); /* Insert file data in holdText */
 	holdText[size] = '\0'; 
-	removeExtraSpaces(holdText);
-
+	
 	/* Break holdText up into lines */
 	for(lineToken = strtok(holdText, "\n"); lineToken != NULL; 
 	lineToken = strtok(lineToken + strlen(lineToken) + 1, "\n")){
@@ -56,16 +54,19 @@ int main(int argc, char *argv[]){
 		/* Get number of strings in the line */
 		totalStrings = countWords(holdLine);
 
-		/* Allocate space for words */
-		holdWords = realloc(holdWords, totalStrings * sizeof(char **));
-
 		/* Break holdLine up into words, store in holdWords */
-		for(wordToken = strtok(holdLine, " \t"); wordToken != NULL; 
-		wordToken = strtok(wordToken + strlen(wordToken) + 1, " \t")){
-			if (strcmp(searchTerm, wordToken) == 0) {
+		i = 0;
+		for(wordToken = strtok(holdLine, " \t"); wordToken != NULL && i < totalStrings; 
+		wordToken = strtok(wordToken + strlen(wordToken) + 1, " \t")){ 
+			/* Allocate space for word */
+			holdWord = realloc(holdWord, strlen(wordToken) + 1);
+			strcpy(holdWord, wordToken);
+
+			if (strcmp(searchTerm, holdWord) == 0) {
 				printf("%d:%s\n", lineNumber, lineToken);
 				break;
 			}
+			i++;
 		}
 		lineNumber++;
 	}
@@ -75,20 +76,9 @@ int main(int argc, char *argv[]){
 		printf("Error closing input file.\n");
 
 	free(holdText);
-	free(holdWords);
+	free(holdWord);
 
 	return 0;
-}
-
-
-void removeExtraSpaces(char *input) {
-    char *output = input;
-    while (*input != '\0'){
-        while (*input == ' ' && *(input + 1) == ' ')
-            *input++;
-        *output++ = *input++;
-    }
-    *output = '\0';
 }
 
 
