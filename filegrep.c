@@ -7,16 +7,17 @@
 #define OUTFILEARG 2
 
 int countWords(const char *sentence);
+void removeExtraSpaces(char *input);
 
 int main(int argc, char *argv[]){
-	
+
 	// Argument count must equal NUMARG
 	if (argc != NUMARG) {
 		fprintf(stderr, "%s", "Usage: filegrep PATTERN FILE\n");
 		exit(1);
 	}
 
-	// Retrive search pattern
+	// Retrieve search pattern
 	int searchTermLength = strlen(argv[INFILEARG]);
 	char *searchTerm = malloc(sizeof(char) * (searchTermLength+4));
 	strcpy(searchTerm, argv[INFILEARG]);
@@ -24,14 +25,14 @@ int main(int argc, char *argv[]){
 	// Open file
 	FILE *fin;
 	if( (fin = fopen(argv[OUTFILEARG], "r")) == NULL ){
-		printf("filegrep: %s: No such file or directory\n", argv[OUTFILEARG]);
+		fprintf(stderr, "filegrep: %s: No such file or directory\n", argv[OUTFILEARG]);
 		exit(1);
 	}
 
 	char **holdWords = NULL, *holdLine = NULL, *holdText = NULL,
 		 *lineToken = NULL, *wordToken = NULL;
 	size_t size = 0;
-	int totalStrings, i, lineNumber = 1;
+	int totalStrings, lineNumber = 1;
 
 	/* Count char total in input file and allocate size in holdText. */
 	fseek(fin, 0, SEEK_END); /* Bring pointer to end of input file */
@@ -42,10 +43,11 @@ int main(int argc, char *argv[]){
 	holdText = malloc((size + 1) * sizeof(*holdText));
 	fread(holdText, size, 1, fin); /* Insert file data in holdText */
 	holdText[size] = '\0'; 
+	removeExtraSpaces(holdText);
 
 	/* Break holdText up into lines */
 	for(lineToken = strtok(holdText, "\n"); lineToken != NULL; 
-		lineToken = strtok(lineToken + strlen(lineToken) + 1, "\n")){
+	lineToken = strtok(lineToken + strlen(lineToken) + 1, "\n")){
 
 		/* Dynamically allocate space for each line */
 		holdLine = realloc(holdLine, strlen(lineToken) + 1);
@@ -58,26 +60,35 @@ int main(int argc, char *argv[]){
 		holdWords = realloc(holdWords, totalStrings * sizeof(char **));
 
 		/* Break holdLine up into words, store in holdWords */
-		i = 0;
 		for(wordToken = strtok(holdLine, " \t"); wordToken != NULL; 
 		wordToken = strtok(wordToken + strlen(wordToken) + 1, " \t")){
-			if (strcmp(searchTerm, wordToken) == 0){
+			if (strcmp(searchTerm, wordToken) == 0) {
 				printf("%d:%s\n", lineNumber, lineToken);
+				break;
 			}
-			i++;
 		}
 		lineNumber++;
 	}
 
-
-	// Close files, then free memory.
+	// Close file, then free memory.
 	if (fclose(fin) == EOF)
-		printf("Error closing input file.\n"); fflush(stdout);
+		printf("Error closing input file.\n");
 
 	free(holdText);
 	free(holdWords);
 
 	return 0;
+}
+
+
+void removeExtraSpaces(char *input) {
+    char *output = input;
+    while (*input != '\0'){
+        while (*input == ' ' && *(input + 1) == ' ')
+            *input++;
+        *output++ = *input++;
+    }
+    *output = '\0';
 }
 
 
