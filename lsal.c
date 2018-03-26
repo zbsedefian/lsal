@@ -16,6 +16,8 @@ char* formatTime(char* str);
 const char* getFilePermissions(int mode);
 const char* getLastModifiedTime(char *filePath);
 static int cmpstringp(const void *p1, const void *p2);
+int getFormatWidth(char* buf, struct dirent **nameList, 
+                   struct stat mystat, int n, int choice);
 
 int main (int argc, char *argv[]) {
     
@@ -55,22 +57,9 @@ int main (int argc, char *argv[]) {
             printf("total %d\n", 0000);
         }
 
-        // Get format width for links
-        for (j = 0; j < n; j++) {
-            sprintf(buf, "%s", namelist[j]->d_name);
-            stat(buf, &mystat);
-            if (formatWidthLink < (int)floor(log10(abs(mystat.st_nlink))) + 1)
-                formatWidthLink = (int)floor(log10(abs(mystat.st_nlink))) + 1;
-        }
-
-
-        // Get format width for size
-        for (j = 0; j < n; j++) {
-            sprintf(buf, "%s", namelist[j]->d_name);
-            stat(buf, &mystat);
-            if (formatWidthSize < (int)floor(log10(abs(mystat.st_size))) + 1)
-                formatWidthSize = (int)floor(log10(abs(mystat.st_size))) + 1;
-        }
+        // Get format width for links and file size
+        formatWidthLink = getFormatWidth(buf, namelist, mystat, n, 0);
+        formatWidthSize = getFormatWidth(buf, namelist, mystat, n, 1);
 
         // Print contents of directory
         for (j = 0; j < n; j++) {
@@ -155,6 +144,24 @@ static int cmpstringp(const void *p1, const void *p2) {
    return strcmp(* (char * const *) p1, * (char * const *) p2);
 }
 
+
+int getFormatWidth(char* buf, struct dirent **namelist, 
+                   struct stat mystat, int n, int choice){
+    int j, formatWidth = 0;
+    for (j = 0; j < n; j++) {
+        sprintf(buf, "%s", namelist[j]->d_name);
+        stat(buf, &mystat);
+        if (choice == 0) {
+            if (formatWidth < (int)floor(log10(abs(mystat.st_nlink))) + 1)
+                formatWidth = (int)floor(log10(abs(mystat.st_nlink))) + 1;
+        }
+        else {
+            if (formatWidth < (int)floor(log10(abs(mystat.st_size))) + 1)
+                formatWidth = (int)floor(log10(abs(mystat.st_size))) + 1;
+        }
+    }
+    return formatWidth;
+}
 
 // // Sort file/dir names
 // static int sortFiles(const struct dirent *ent) {
