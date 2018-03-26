@@ -10,6 +10,7 @@
 #include <pwd.h>
 #include <grp.h>
 #include <locale.h>
+#include <math.h>
 
 char* formatTime(char* str);
 const char* getFilePermissions(int mode);
@@ -22,21 +23,27 @@ int main (int argc, char *argv[]) {
     //struct dirent *pDirent;
     struct dirent **namelist;
     struct stat mystat;
-    int i, j, n;
+    int i, j, n, setToOne = 0, formatWidthLink = 0, formatWidthSize = 0;
     char buf[512];
 
     // Both help ensure alphabetical order
     setlocale(LC_ALL, ""); 
     qsort(&argv[1], argc - 1, sizeof(char *), cmpstringp); // sorts argv
 
-    for (i = 1; i < argc; i++) {
-        // Point to current directory if none specified
-        if (argc == 1) pDir = opendir(".");
-        else pDir = opendir(argv[i]);
+    for (i = 0; i < argc; i++) {
+        if (argc == 1) {
+            pDir = opendir(".");
+            // For alphabetical sorting of directories in current dir
+            n = scandir(".", &namelist, NULL, alphasort);
+        }
+        else {
+            if (i == 0)
+                i = 1;
+            pDir = opendir(argv[i]);
+            // For alphabetical sorting of directories
+            n = scandir(argv[i], &namelist, NULL, alphasort);
+        }
         
-        // For alphabetical sorting
-        n = scandir(argv[i], &namelist, NULL, alphasort);
-
         // If directory not found, exit
         if (pDir == NULL) {
             printf("lsal: cannot access '%s': No such file or directory", argv[i]);
@@ -44,23 +51,40 @@ int main (int argc, char *argv[]) {
         else {
             // Print directory name
             if (argc > 2) printf("%s:\n", argv[i]); 
-
             // Print total blocks or whatever that is
             printf("total %d\n", 0000);
         }
 
-        // Print contents of directory
-        j = 0;
-        while (j < n) {
+        // Get format width for links
+        for (j = 0; j < n; j++) {
             sprintf(buf, "%s", namelist[j]->d_name);
             stat(buf, &mystat);
+            if (formatWidthLink < (int)floor(log10(abs(mystat.st_nlink))) + 1)
+                formatWidthLink = (int)floor(log10(abs(mystat.st_nlink))) + 1;
+        }
 
+
+        // Get format width for size
+        for (j = 0; j < n; j++) {
+            sprintf(buf, "%s", namelist[j]->d_name);
+            stat(buf, &mystat);
+            if (formatWidthSize < (int)floor(log10(abs(mystat.st_size))) + 1)
+                formatWidthSize = (int)floor(log10(abs(mystat.st_size))) + 1;
+        }
+
+        // Print contents of directory
+        for (j = 0; j < n; j++) {
+            sprintf(buf, "%s", namelist[j]->d_name);
+            stat(buf, &mystat);
+            
             if (namelist[j]->d_type == DT_DIR || namelist[j]->d_type == DT_REG) {
-                printf("%s %2ld %s %s %ld %s %s", 
+                printf("%s %*ld %s %s %*ld %s %s", 
                     getFilePermissions(mystat.st_mode),
+                    formatWidthLink,
                     mystat.st_nlink,
                     getpwuid(mystat.st_uid)->pw_name,
-                    getgrgid(mystat.st_gid)->gr_name, 5,
+                    getgrgid(mystat.st_gid)->gr_name,
+                    formatWidthSize,
                     mystat.st_size,
                     //formatTime(ctime(&mystat.st_mtime)),
                     getLastModifiedTime(namelist[j]->d_name),
@@ -71,11 +95,11 @@ int main (int argc, char *argv[]) {
             if (namelist[j]->d_type == DT_DIR) 
                 printf("/");
             printf("\n");
-            j++;
         }
             
         if (i < argc-1) printf("\n");
     }
+
     free(namelist);
     closedir(pDir);
     return 0;
