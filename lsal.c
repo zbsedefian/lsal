@@ -9,15 +9,19 @@
 #include <unistd.h>
 #include <pwd.h>
 #include <grp.h>
+#include <locale.h>
 
 char* formatTime(char* str);
 const char* getFilePermissions(int mode);
 
 int main (int argc, char *argv[]) {
     
-    struct dirent *pDirent;
     DIR *pDir;
+    struct dirent *pDirent;
+    struct stat mystat;
     int i;
+    char buf[512];
+    setlocale(LC_ALL, ""); // alphabetical order
 
     for (i = argc-1; i > 0; i--) {
         // Point to current directory if none specified
@@ -29,37 +33,34 @@ int main (int argc, char *argv[]) {
             printf("lsal: cannot access '%s': No such file or directory\n", argv[i]);
             return 1;
         }
- 
-         // Print directory name
+
+        // Print directory name
         if (argc > 1) printf("%s:\n", argv[i]); 
-       
-           // Print contents of directory
+        printf("total %d\n", 4);
+
+        // Print contents of directory
         while ((pDirent = readdir(pDir)) != NULL) {
 
-            char *fd = pDirent->d_name;
-            struct stat buf;
+            sprintf(buf, "%s/%s", argv[i], pDirent->d_name);
+            stat(buf, &mystat);
 
-            stat(fd, &buf);
-            //printf("buf.st_mode is %d\n\n", buf.st_mode);
-
-            if (pDirent->d_type == DT_DIR || pDirent->d_type == DT_REG)
-                printf("%s %ld %s %d %ld %s %s", getFilePermissions(buf.st_mode),
-                                            buf.st_nlink,
-                                            getpwuid(buf.st_uid)->pw_name,
-                                            // getgrgid(
-                                            //      buf.st_gid
-                                            // )->gr_name
-                                            buf.st_gid
-                                            ,
-                                            buf.st_size,
-                                            formatTime(ctime(&buf.st_ctime)),
-                                            pDirent->d_name
+            if (pDirent->d_type == DT_DIR || pDirent->d_type == DT_REG) {
+                printf("%s %2ld %s %s %4ld %s %s", 
+                    getFilePermissions(mystat.st_mode),
+                    mystat.st_nlink,
+                    getpwuid(mystat.st_uid)->pw_name,
+                    getgrgid(
+                        mystat.st_gid
+                    )->gr_name,
+                    mystat.st_size,
+                    formatTime(ctime(&mystat.st_ctime)),
+                    pDirent->d_name
                 );
-
+            }
 
             if (pDirent->d_type == DT_DIR) printf("/");
 
-             printf("\n");
+            printf("\n");
         }
         
         if (i > 1) printf("\n");
@@ -96,4 +97,12 @@ const char* getFilePermissions(int mode) {
     (mode & S_IXOTH) ? strcat(output, "x") : strcat(output, "-");
     strcat(output, "\0");
     return output;
+}
+
+
+// Sort file/dir names
+static int sortFiles(const struct dirent *ent) {
+    if (ent->d_name[0] == '.')
+        return 0;
+    return 1;
 }
