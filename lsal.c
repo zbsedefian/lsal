@@ -13,21 +13,25 @@
 
 char* formatTime(char* str);
 const char* getFilePermissions(int mode);
+const char* getLastModifiedTime(char *filePath);
 
 int main (int argc, char *argv[]) {
     
     DIR *pDir;
-    struct dirent *pDirent;
+    struct dirent **namelist;
     struct stat mystat;
-    int i;
+    int i, j, n;
     char buf[512];
-    setlocale(LC_ALL, ""); // alphabetical order
+    setlocale(LC_ALL, ""); // ensures alphabetical order
 
     for (i = argc-1; i > 0; i--) {
         // Point to current directory if none specified
         if (argc == 1) pDir = opendir(".");
         else pDir = opendir(argv[i]);
-
+        
+        // For alphabetical sorting
+        n = scandir(argv[i], &namelist, NULL, alphasort);
+        
         // If directory not found, exit
         if (pDir == NULL) {
             printf("lsal: cannot access '%s': No such file or directory\n", argv[i]);
@@ -36,37 +40,51 @@ int main (int argc, char *argv[]) {
 
         // Print directory name
         if (argc > 1) printf("%s:\n", argv[i]); 
+
+        // Print total blocks or whatever that is
         printf("total %d\n", 4);
 
         // Print contents of directory
-        while ((pDirent = readdir(pDir)) != NULL) {
-
-            sprintf(buf, "%s/%s", argv[i], pDirent->d_name);
+        j = 0;
+        while (j < n) {
+            sprintf(buf, "%s/%s", argv[i], namelist[i]->d_name);
             stat(buf, &mystat);
 
-            if (pDirent->d_type == DT_DIR || pDirent->d_type == DT_REG) {
+            if (namelist[j]->d_type == DT_DIR || namelist[j]->d_type == DT_REG) {
                 printf("%s %2ld %s %s %4ld %s %s", 
                     getFilePermissions(mystat.st_mode),
                     mystat.st_nlink,
                     getpwuid(mystat.st_uid)->pw_name,
-                    getgrgid(
-                        mystat.st_gid
-                    )->gr_name,
+                    getgrgid(mystat.st_gid)->gr_name,
                     mystat.st_size,
-                    formatTime(ctime(&mystat.st_ctime)),
-                    pDirent->d_name
+                    //formatTime(ctime(&mystat.st_mtime)),
+                    getLastModifiedTime(namelist[j]->d_name),
+                    namelist[j]->d_name
                 );
             }
 
-            if (pDirent->d_type == DT_DIR) printf("/");
-
+            if (namelist[j]->d_type == DT_DIR) 
+                printf("/");
             printf("\n");
+            j++;
         }
         
         if (i > 1) printf("\n");
     }
+    free(namelist);
     closedir(pDir);
     return 0;
+}
+
+
+// Returns the last time a file or directory was modified
+const char* getLastModifiedTime(char *filePath) {
+    struct stat attrib;
+    stat(filePath, &attrib);
+    static char date[10];
+    time_t t = time(0);
+    strftime(date, 16, "%b %2d %H:%M ", localtime(&(attrib.st_mtime)));
+    return date;
 }
 
 
@@ -100,9 +118,9 @@ const char* getFilePermissions(int mode) {
 }
 
 
-// Sort file/dir names
-static int sortFiles(const struct dirent *ent) {
-    if (ent->d_name[0] == '.')
-        return 0;
-    return 1;
-}
+// // Sort file/dir names
+// static int sortFiles(const struct dirent *ent) {
+//     if (ent->d_name[0] == '.')
+//         return 0;
+//     return 1;
+// }
