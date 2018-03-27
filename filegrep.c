@@ -31,7 +31,7 @@ int main(int argc, char *argv[]){
 	char *holdWord = NULL, *holdLine = NULL, *holdText = NULL,
 		 *lineToken = NULL, *wordToken = NULL;
 	size_t size = 0;
-	int totalStrings, i = 0, lineNumber = 1;
+	int totalStrings, i = 0, j = 0, lineNumber = 1, lineLength = 0;
 
 	/* Count char total in input file and allocate size in holdText. */
 	fseek(fin, 0, SEEK_END); /* Bring pointer to end of input file */
@@ -54,20 +54,11 @@ int main(int argc, char *argv[]){
 		/* Get number of strings in the line */
 		totalStrings = countWords(holdLine);
 
-		/* Break holdLine up into words, store in holdWords */
-		i = 0;
-		for(wordToken = strtok(holdLine, " \t"); wordToken != NULL && i < totalStrings; 
-		wordToken = strtok(wordToken + strlen(wordToken) + 1, " \t")){ 
-			/* Allocate space for word */
-			holdWord = realloc(holdWord, strlen(wordToken) + 1);
-			strcpy(holdWord, wordToken);
-
-			if (strcmp(searchTerm, holdWord) == 0) {
-				printf("%d:%s\n", lineNumber, lineToken);
-				break;
-			}
-			i++;
+		/* If line contains string, print it */
+		if (strstr(holdLine, searchTerm) != NULL) {
+			printf("%d:%s\n", lineNumber, lineToken);
 		}
+					
 		lineNumber++;
 	}
 

@@ -77,6 +77,7 @@ int main (int argc, char *argv[])
                 sprintf(buf, "%s", namelist[j]->d_name);
                 mystat = emptystat;
                 stat(buf, &mystat);
+                //lstat(buf, &mystat);
                 //printf("%s\n", buf);
                 
                 if (namelist[j]->d_type == DT_DIR || 
