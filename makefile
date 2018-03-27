@@ -1,11 +1,10 @@
 # make file
-all: filegrep.o lsal.o lsal2.o
-	gcc -o filegrep.o lsal.o lsal2.o
-filegrep.o: filegrep.c
-	gcc -c filegrep.c
-lsal.o: lsal.c
-	gcc -c lsal.c
-lsal2.o: lsal2.c
-	gcc -c lsal2.c
+all: filegrep lsal lsal2
+filegrep: filegrep.c
+	gcc -o filegrep filegrep.c
+lsal: lsal.c
+	gcc lsal.c -lm -o lsal
+lsal2: lsal2.c
+	gcc lsal2.c -lm -o lsal2
 clean:
 	rm filegrep lsal lsal2
