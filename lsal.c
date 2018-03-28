@@ -12,7 +12,7 @@
 #include <locale.h>
 #include <math.h>
 
-char* formatTime(char* str);
+int getTotalSkips(int skipFlags[]);
 const char* getFilePermissions(int mode);
 const char* getLastModifiedTime(char *filePath);
 static int cmpstringp(const void *p1, const void *p2);
@@ -21,22 +21,40 @@ int getFormatWidth( char* buf,
                     struct dirent **namelist, 
                     struct stat mystat, 
                     int n, 
-                    int choice);
+                    int choice );
 
 int main (int argc, char *argv[]) 
 {
     DIR *pDir;
-    //struct dirent *pDirent;
     struct dirent **namelist;
     struct stat mystat;
     static const struct stat emptystat;
-    int i, j, n, formatWidthLink = 0, formatWidthSize = 0, total = 0;
+    int i, j, n, 
+    formatWidthLink = 0, 
+    formatWidthSize = 0, 
+    total = 0;
     char buf[512];
     char currArg[512];
+    int skipFlags[20] = {0};
+    int totalSkips = 0;
+    setlocale(LC_ALL, "");
 
-    // Both help ensure alphabetical order
-    setlocale(LC_ALL, ""); 
-    qsort(&argv[1], argc - 1, sizeof(char *), cmpstringp); // sorts argv
+    totalSkips = getTotalSkips(skipFlags);
+
+    if (argc > 1)
+    {
+        for (i = 1; i < argc; i++)
+        {
+            pDir = opendir(argv[i]);
+            if (pDir == NULL) 
+            {
+                printf("lsal: cannot access '%s': No such file or directory\n", 
+                    argv[i]);
+                skipFlags[i] = 1;
+            }
+        }
+        qsort(&argv[1], argc - 1, sizeof(char *), cmpstringp); // sorts argv
+    }
 
     for (i = 0; i < argc; i++) 
     {
@@ -47,6 +65,10 @@ int main (int argc, char *argv[])
             n = scandir(".", &namelist, NULL, alphasort);
             strcpy(argv[i], ".");
         }
+        else if (skipFlags[i] == 1)
+        {
+            continue;
+        }
         else 
         {
             if (i == 0) i = 1;  // if argc > 1, you want to start at index 1
@@ -56,12 +78,7 @@ int main (int argc, char *argv[])
         }
         
         // Error if directory not found
-        if (pDir == NULL) 
-        {
-            printf("lsal: cannot access '%s': No such file or directory\n", 
-                argv[i]);
-        }
-        else 
+        if (pDir != NULL) 
         {
             // Print directory name
             if (argc > 2) printf("%s:\n", argv[i]);
@@ -87,12 +104,11 @@ int main (int argc, char *argv[])
                     printf("%s %*ld %s %s %*ld %s %c[1;34m%s%c[0m", 
                         getFilePermissions(mystat.st_mode),
                         formatWidthLink,
-                        mystat.st_nlink,
+                        (long)mystat.st_nlink,
                         getpwuid(mystat.st_uid)->pw_name,
                         getgrgid(mystat.st_gid)->gr_name,
                         formatWidthSize,
-                        mystat.st_size,
-                        //formatTime(ctime(&mystat.st_mtime)),
+                        (long)mystat.st_size,
                         getLastModifiedTime(buf),
                         27,
                         namelist[j]->d_name,
@@ -105,7 +121,7 @@ int main (int argc, char *argv[])
                 printf("\n");
             }
         }    
-        if (i < argc-1) printf("\n");
+        if (i < argc-1-totalSkips) printf("\n");
     }
 
     free(namelist);
@@ -125,6 +141,17 @@ static int cmpstringp(const void *p1, const void *p2)
 }
 
 
+int getTotalSkips(int skipFlags[])
+{
+    int totalSkips = 0, i;
+    size_t size = sizeof(&skipFlags)/sizeof(&skipFlags[0]);
+    for (i = 0; i < size; i++)
+        if (skipFlags[i] == 1)
+            totalSkips++;
+    return totalSkips;
+}
+
+
 // Function name a little inaccurate -- 
 // this will return format width but it will
 // also return total blocks
@@ -133,7 +160,7 @@ int getFormatWidth( char* buf,
                     struct dirent **namelist, 
                     struct stat mystat, 
                     int n, 
-                    int choice) 
+                    int choice ) 
 {
     int j, formatWidth = 0;
     for (j = 0; j < n; j++) 
@@ -143,13 +170,13 @@ int getFormatWidth( char* buf,
 
         if (choice == 0) 
         {
-            if (formatWidth < (int)floor(log10(abs(mystat.st_nlink))) + 1)
-                formatWidth = (int)floor(log10(abs(mystat.st_nlink))) + 1;
+            if (formatWidth < (int)floor(log10(abs((int)mystat.st_nlink))) + 1)
+                formatWidth = (int)floor(log10(abs((int)mystat.st_nlink))) + 1;
         }
         else if (choice == 1)
         {
-            if (formatWidth < (int)floor(log10(abs(mystat.st_size))) + 1)
-                formatWidth = (int)floor(log10(abs(mystat.st_size))) + 1;
+            if (formatWidth < (int)floor(log10(abs((int)mystat.st_size))) + 1)
+                formatWidth = (int)floor(log10(abs((int)mystat.st_size))) + 1;
         }
         else if (choice == 2)
         {
