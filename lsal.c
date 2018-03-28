@@ -31,72 +31,45 @@ int main (int argc, char *argv[])
     struct stat mystat;
     static const struct stat emptystat;
     int i, j, n, formatWidthLink = 0, formatWidthSize = 0, total = 0;
-    size_t nonNullArgCount = 1;
     char buf[512];
     char currArg[512];
-    char *nonNullArgs[argc-1];
 
     // Both help ensure alphabetical order
     setlocale(LC_ALL, ""); 
+    qsort(&argv[1], argc - 1, sizeof(char *), cmpstringp); // sorts argv
 
-    // Check if files found. Add to array if they are.
-    if (argc > 1) 
-    {
-        for (i = 1; i < argc; i++) 
-        {
-            pDir = opendir(argv[i]);
-            if (pDir == NULL) {
-                printf("lsal: cannot access '%s': No such file or directory\n", 
-                    argv[i]);
-            }
-            else {
-                nonNullArgs[i-0] = malloc(strlen(argv[i]) + 1);
-                strcpy(nonNullArgs[i-0], argv[i]); 
-            }
-            
-        }
-        nonNullArgCount = sizeof(nonNullArgs) / sizeof(nonNullArgs[0]);;
-        qsort(&nonNullArgs[0], nonNullArgCount - 1, sizeof(char *), cmpstringp); // sorts argv
-    }
-
-
-
-    
-
-
-
-    for (i = 0; i < nonNullArgCount; i++) 
+    for (i = 0; i < argc; i++) 
     {
         if (argc == 1) 
         {
             pDir = opendir("."); // open current directory
             // For alphabetical sorting of directories in current dir
             n = scandir(".", &namelist, NULL, alphasort);
-            strcpy(nonNullArgs[i], ".");
+            strcpy(argv[i], ".");
         }
         else 
         {
             if (i == 0) i = 1;  // if argc > 1, you want to start at index 1
-            pDir = opendir(nonNullArgs[i]);
+            pDir = opendir(argv[i]);
             // For alphabetical sorting of directories
-            n = scandir(nonNullArgs[i], &namelist, NULL, alphasort);
+            n = scandir(argv[i], &namelist, NULL, alphasort);
         }
         
         // Error if directory not found
-        if (pDir != NULL) 
+        if (pDir == NULL) 
         {
             printf("lsal: cannot access '%s': No such file or directory\n", 
-                nonNullArgs[i]);
+                argv[i]);
         }
         else 
         {
             // Print directory name
-            if (argc > 2) printf("%s:\n", nonNullArgs[i]);
+            if (argc > 2) printf("%s:\n", argv[i]);
             
             // Get format width for links and file size, get total
-            formatWidthLink = getFormatWidth(buf, nonNullArgs[i], namelist, mystat, n, 0);
-            formatWidthSize = getFormatWidth(buf, nonNullArgs[i], namelist, mystat, n, 1);
-            total = getFormatWidth(buf, nonNullArgs[i], namelist, mystat, n, 2);
+            formatWidthLink = getFormatWidth(buf, argv[i], namelist, mystat, n, 0);
+            formatWidthSize = getFormatWidth(buf, argv[i], namelist, mystat, n, 1);
+            total = getFormatWidth(buf, argv[i], namelist, mystat, n, 2);
 
             // Print total blocks
             printf("total %d\n", total);
@@ -104,7 +77,7 @@ int main (int argc, char *argv[])
             // Print contents of directory
             for (j = 0; j < n; j++) 
             {
-                sprintf(buf, "%s/%s", nonNullArgs[i], namelist[j]->d_name);
+                sprintf(buf, "%s/%s", argv[i], namelist[j]->d_name);
                 mystat = emptystat;
                 lstat(buf, &mystat);
                 
