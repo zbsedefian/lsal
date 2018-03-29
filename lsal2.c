@@ -117,11 +117,14 @@ int main (int argc, char *argv[])
                 printf("\n");
             }
             if (i < argc-1-dirsNotFound) printf("\n");
+            free(namelist);
         }    
     }
 
-    free(namelist);
-    closedir(pDir);
+    //if (argc > 2)
+    //    free(namelist);
+    if (pDir != NULL)
+        closedir(pDir);
     return 0;
 }
 

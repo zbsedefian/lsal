@@ -26,7 +26,7 @@ int main (int argc, char *argv[])
 {
 
     if (argc > 2) {
-        printf("Usage: ./lsal DIRECTORY");
+        printf("Usage: ./lsal DIRECTORY\n");
         exit(1);
     }
 
@@ -123,10 +123,11 @@ int main (int argc, char *argv[])
                 printf("\n");
             }
             if (i < argc-1-dirsNotFound) printf("\n");
+            free(namelist);
         }    
     }
 
-    free(namelist);
+    
     closedir(pDir);
     return 0;
 }
