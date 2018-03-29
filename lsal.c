@@ -24,6 +24,12 @@ int getFormatWidth( char* buf,
 
 int main (int argc, char *argv[]) 
 {
+
+    if (argc > 2) {
+        printf("Usage: ./lsal DIRECTORY");
+        exit(1);
+    }
+
     DIR *pDir;
     struct dirent **namelist;
     struct stat mystat;
