@@ -25,7 +25,8 @@ int getFormatWidth( char* buf,
 int main (int argc, char *argv[]) 
 {
 
-    if (argc > 2) {
+    if (argc > 2) 
+    {
         printf("Usage: ./lsal DIRECTORY\n");
         exit(1);
     }
@@ -101,8 +102,7 @@ int main (int argc, char *argv[])
                 mystat = emptystat;
                 lstat(buf, &mystat);
                 
-                if (namelist[j]->d_type == DT_DIR || 
-                    namelist[j]->d_type == DT_REG) 
+                if (namelist[j]->d_type == DT_DIR) // print blue if dir
                 {
                     printf("%s %*ld %s %s %*ld %s %c[1;34m%s%c[0m", 
                         getFilePermissions(mystat.st_mode),
@@ -116,6 +116,20 @@ int main (int argc, char *argv[])
                         27,
                         namelist[j]->d_name,
                         27
+                    );
+                }
+                if (namelist[j]->d_type == DT_REG) // print normal if file
+                {
+                    printf("%s %*ld %s %s %*ld %s %s", 
+                        getFilePermissions(mystat.st_mode),
+                        formatWidthLink,
+                        (long)mystat.st_nlink,
+                        getpwuid(mystat.st_uid)->pw_name,
+                        getgrgid(mystat.st_gid)->gr_name,
+                        formatWidthSize,
+                        (long)mystat.st_size,
+                        getLastModifiedTime(buf),
+                        namelist[j]->d_name
                     );
                 }
 
