@@ -12,7 +12,6 @@
 #include <locale.h>
 #include <math.h>
 
-int getTotalSkips(int skipFlags[]);
 const char* getFilePermissions(int mode);
 const char* getLastModifiedTime(char *filePath);
 static int cmpstringp(const void *p1, const void *p2);
@@ -35,11 +34,7 @@ int main (int argc, char *argv[])
     total = 0;
     char buf[512];
     char currArg[512];
-    int skipFlags[20] = {0};
-    int totalSkips = 0;
     setlocale(LC_ALL, "");
-
-    totalSkips = getTotalSkips(skipFlags);
 
     if (argc > 1)
     {
@@ -50,7 +45,6 @@ int main (int argc, char *argv[])
             {
                 printf("lsal: cannot access '%s': No such file or directory\n", 
                     argv[i]);
-                skipFlags[i] = 1;
             }
         }
         qsort(&argv[1], argc - 1, sizeof(char *), cmpstringp); // sorts argv
@@ -65,10 +59,6 @@ int main (int argc, char *argv[])
             n = scandir(".", &namelist, NULL, alphasort);
             strcpy(argv[i], ".");
         }
-        else if (skipFlags[i] == 1)
-        {
-            continue;
-        }
         else 
         {
             if (i == 0) i = 1;  // if argc > 1, you want to start at index 1
@@ -78,7 +68,11 @@ int main (int argc, char *argv[])
         }
         
         // Error if directory not found
-        if (pDir != NULL) 
+        if (pDir == NULL)
+        {
+            continue;
+        }
+        else
         {
             // Print directory name
             if (argc > 2) printf("%s:\n", argv[i]);
@@ -116,12 +110,11 @@ int main (int argc, char *argv[])
                     );
                 }
 
-                if (namelist[j]->d_type == DT_DIR) 
-                    printf("/");
+                if (namelist[j]->d_type == DT_DIR) printf("/");
                 printf("\n");
             }
+            if (i < argc-1) printf("\n");
         }    
-        if (i < argc-1-totalSkips) printf("\n");
     }
 
     free(namelist);
@@ -138,17 +131,6 @@ static int cmpstringp(const void *p1, const void *p2)
        to char", hence the following cast plus dereference */
 
    return strcmp(* (char * const *) p1, * (char * const *) p2);
-}
-
-
-int getTotalSkips(int skipFlags[])
-{
-    int totalSkips = 0, i;
-    size_t size = sizeof(&skipFlags)/sizeof(&skipFlags[0]);
-    for (i = 0; i < size; i++)
-        if (skipFlags[i] == 1)
-            totalSkips++;
-    return totalSkips;
 }
 
 
