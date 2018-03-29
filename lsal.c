@@ -31,11 +31,13 @@ int main (int argc, char *argv[])
     int i, j, n, 
     formatWidthLink = 0, 
     formatWidthSize = 0, 
-    total = 0;
+    total = 0,
+    dirsNotFound = 0;
     char buf[512];
     char currArg[512];
     setlocale(LC_ALL, "");
 
+    // Print out the directories that are invalid
     if (argc > 1)
     {
         for (i = 1; i < argc; i++)
@@ -45,6 +47,7 @@ int main (int argc, char *argv[])
             {
                 printf("lsal: cannot access '%s': No such file or directory\n", 
                     argv[i]);
+                dirsNotFound++; //use this to ensure proper newline amount
             }
         }
         qsort(&argv[1], argc - 1, sizeof(char *), cmpstringp); // sorts argv
@@ -67,10 +70,10 @@ int main (int argc, char *argv[])
             n = scandir(argv[i], &namelist, NULL, alphasort);
         }
         
-        // Error if directory not found
+        // Continue if directory not found
         if (pDir == NULL)
         {
-            continue;
+            continue;   
         }
         else
         {
@@ -113,7 +116,7 @@ int main (int argc, char *argv[])
                 if (namelist[j]->d_type == DT_DIR) printf("/");
                 printf("\n");
             }
-            if (i < argc-1) printf("\n");
+            if (i < argc-1-dirsNotFound) printf("\n");
         }    
     }
 
