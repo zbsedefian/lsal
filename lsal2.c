@@ -25,6 +25,12 @@ int getFormatWidth( char* buf,
                     struct stat mystat, 
                     int n, 
                     int choice );
+int getFormatWidthForFile( char* buf, 
+                    char* currArg,
+                    char* argv[], 
+                    struct stat mystat, 
+                    int argc, 
+                    int choice ) ;
 
 int main (int argc, char *argv[]) 
 {
@@ -52,13 +58,15 @@ int main (int argc, char *argv[])
             lstat(argv[i], &mystat);
 
             fp = -1;
+            pDir = NULL;
+
             if (S_ISDIR(mystat.st_mode))
             {
                 pDir = opendir(argv[i]);
             }
             else if (S_ISREG(mystat.st_mode))
             {
-                fp = open(argv[i], O_RDONLY, 0444);
+                fp = open(argv[i], O_RDONLY | !O_CREAT, 0444);
             }
 
             if (pDir == NULL && fp == -1) 
@@ -66,6 +74,7 @@ int main (int argc, char *argv[])
                 printf("lsal: cannot access '%s': No such file or directory\n", 
                     argv[i]);
                 dirsNotFound++; //use this to ensure proper newline amount
+                close(fp);
             }
         }
         qsort(&argv[1], argc - 1, sizeof(char *), cmpstringp); // sorts argv
@@ -78,7 +87,9 @@ int main (int argc, char *argv[])
     */
     for (i = 0; i < argc; i++) 
     {
-        if (argc == 1 )//|| strcmp(argv[1], "*")) 
+        pDir = NULL;
+
+        if (argc == 1)//|| strcmp(argv[1], "*")) 
         {
             pDir = opendir("."); // open current directory
             // For alphabetical sorting of directories in current dir
@@ -90,7 +101,7 @@ int main (int argc, char *argv[])
             if (i == 0) i = 1;  // if argc > 1, you want to start at index 1
             
             fp = 0;
-            pDir = NULL;
+            //pDir = NULL;
             lstat(argv[i], &mystat);
 
             if (S_ISDIR(mystat.st_mode))
@@ -99,7 +110,7 @@ int main (int argc, char *argv[])
             }
             else if (S_ISREG(mystat.st_mode))
             {
-                fp = open(argv[i], 'r');
+                fp = open(argv[i], O_RDONLY | !O_CREAT, 0444);
             }
             
             // For alphabetical sorting of directories
@@ -116,25 +127,55 @@ int main (int argc, char *argv[])
             // Print directory name
             //if (S_ISDIR(mystat.st_mode)) printf("%s:\n", argv[i]);
             
-            // Get format width for links and file size, get total
-            formatWidthLink = getFormatWidth(buf, argv[i], namelist, mystat, n, 0);
-            formatWidthSize = getFormatWidth(buf, argv[i], namelist, mystat, n, 1);
-            total = getFormatWidth(buf, argv[i], namelist, mystat, n, 2);
+            
 
             // Print file
-            if (fp >= 0 && S_ISREG(mystat.st_mode)) // print normal if file
+            if (fp > 0)//&& S_ISREG(mystat.st_mode)) // print normal if file
             {
-                printf("%s %*ld %s %s %*ld %s %s", 
-                    getFilePermissions(mystat.st_mode),
-                    formatWidthLink,
-                    (long)mystat.st_nlink,
-                    getpwuid(mystat.st_uid)->pw_name,
-                    getgrgid(mystat.st_gid)->gr_name,
-                    formatWidthSize,
-                    (long)mystat.st_size,
-                    getLastModifiedTime(buf),
-                    argv[i]
-                );
+                formatWidthLink = getFormatWidthForFile(buf, argv[i], argv, mystat, argc, 0);
+                formatWidthSize = getFormatWidthForFile(buf, argv[i], argv, mystat, argc, 1);
+                total = getFormatWidthForFile(buf, argv[i], argv, mystat, argc, 2);
+
+                if (strstr(getFilePermissions(mystat.st_mode), "x")) // print normal if file
+                {
+                    printf("%s %*ld %s %s %*ld %s %c[1;32m%s%c[0m*", 
+                        getFilePermissions(mystat.st_mode),
+                        formatWidthLink,
+                        (long)mystat.st_nlink,
+                        getpwuid(mystat.st_uid)->pw_name,
+                        getgrgid(mystat.st_gid)->gr_name,
+                        formatWidthSize,
+                        (long)mystat.st_size,
+                        getLastModifiedTime(buf),
+                        27,
+                        argv[i],
+                        27
+                    );
+                }
+
+                else 
+                {
+                    printf("%s %*ld %s %s %*ld %s %s", 
+                        getFilePermissions(mystat.st_mode),
+                        formatWidthLink,
+                        (long)mystat.st_nlink,
+                        getpwuid(mystat.st_uid)->pw_name,
+                        getgrgid(mystat.st_gid)->gr_name,
+                        formatWidthSize,
+                        (long)mystat.st_size,
+                        getLastModifiedTime(buf),
+                        argv[i]
+                        );
+                }
+
+                //add green for strstr(thing, 'x') as well as end with *
+            }
+            else
+            {
+                // Get format width for links and file size, get total
+                formatWidthLink = getFormatWidth(buf, argv[i], namelist, mystat, n, 0);
+                formatWidthSize = getFormatWidth(buf, argv[i], namelist, mystat, n, 1);
+                total = getFormatWidth(buf, argv[i], namelist, mystat, n, 2);
             }
 
             if (pDir != NULL)
@@ -152,7 +193,8 @@ int main (int argc, char *argv[])
                 mystat = emptystat;
                 lstat(buf, &mystat);
                 
-                if (S_ISDIR(mystat.st_mode)) //print blue
+                //print blue if directory
+                if (S_ISDIR(mystat.st_mode)) 
                 {
                     printf("%s %*ld %s %s %*ld %s %c[1;34m%s%c[0m", 
                         getFilePermissions(mystat.st_mode),
@@ -168,8 +210,26 @@ int main (int argc, char *argv[])
                         27
                     );
                 }
-
-                if (S_ISREG(mystat.st_mode)) // print normal if file
+                // print green if executable
+                else if (S_ISREG(mystat.st_mode) && 
+                    strstr(getFilePermissions(mystat.st_mode), "x"))
+                {
+                    printf("%s %*ld %s %s %*ld %s %c[1;32m%s%c[0m*", 
+                        getFilePermissions(mystat.st_mode),
+                        formatWidthLink,
+                        (long)mystat.st_nlink,
+                        getpwuid(mystat.st_uid)->pw_name,
+                        getgrgid(mystat.st_gid)->gr_name,
+                        formatWidthSize,
+                        (long)mystat.st_size,
+                        getLastModifiedTime(buf),
+                        27,
+                        namelist[j]->d_name,
+                        27
+                    );
+                }
+                // print normal if file
+                else if (S_ISREG(mystat.st_mode)) 
                 {
                     printf("%s %*ld %s %s %*ld %s %s", 
                         getFilePermissions(mystat.st_mode),
@@ -183,14 +243,16 @@ int main (int argc, char *argv[])
                         namelist[j]->d_name
                     );
                 }
+                
+
 
                 if (S_ISDIR(mystat.st_mode)) 
                     printf("/");
                 printf("\n");
             } 
-            if (i < argc-1-dirsNotFound)
+            if (i < argc-1-dirsNotFound || S_ISREG(mystat.st_mode))
                 printf("\n");
-            if (namelist[i] != NULL) free(namelist);
+            //if (namelist[i] != NULL) free(namelist);
         }    
     }
 
@@ -198,8 +260,8 @@ int main (int argc, char *argv[])
     //    free(namelist);
     //if (pDir != NULL)
         //closedir(pDir);
-    if (argc == 2)
-        printf("\n");
+    // if (S_ISREG(mystat.st_mode))
+    //     printf("\n");
 
     return 0;
 }
@@ -253,6 +315,43 @@ int getFormatWidth( char* buf,
         return formatWidth / 2;
     return formatWidth;
 }
+
+
+int getFormatWidthForFile( char* buf, 
+                    char* currArg,
+                    char* argv[], 
+                    struct stat mystat, 
+                    int argc, 
+                    int choice ) 
+{
+    int j, formatWidth = 0;
+    for (j = 0; j < argc; j++) 
+    {
+        //sprintf(buf, "%s/%s", currArg, argv[j]->d_name);
+        stat(argv[j], &mystat);
+
+        if (choice == 0) 
+        {
+            if (formatWidth < (int)floor(log10(abs((int)mystat.st_nlink))) + 1)
+                formatWidth = (int)floor(log10(abs((int)mystat.st_nlink))) + 1;
+        }
+        else if (choice == 1)
+        {
+            if (formatWidth < (int)floor(log10(abs((int)mystat.st_size))) + 1)
+                formatWidth = (int)floor(log10(abs((int)mystat.st_size))) + 1;
+        }
+        else if (choice == 2)
+        {
+            // Get total blocks
+            formatWidth += mystat.st_blocks;
+        }
+    }
+
+    if (choice == 2)
+        return formatWidth / 2;
+    return formatWidth;
+}
+
 
 
 // Returns the last time a file or directory was modified
