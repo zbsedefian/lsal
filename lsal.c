@@ -12,6 +12,10 @@
 #include <locale.h>
 #include <math.h>
 
+#ifdef __unix__
+    #define OS_Unix
+#endif
+
 const char* getFilePermissions(int mode);
 const char* getLastModifiedTime(char *filePath);
 static int cmpstringp(const void *p1, const void *p2);
@@ -42,15 +46,29 @@ int main (int argc, char *argv[])
     dirsNotFound = 0;
     char buf[512];
     char currArg[512];
+    int fp;
     setlocale(LC_ALL, "");
 
-    // Print out the directories that are invalid
+    /* 
+    * Print out the directories that are invalid
+    */
     if (argc > 1)
     {
         for (i = 1; i < argc; i++)
         {
-            pDir = opendir(argv[i]);
-            if (pDir == NULL) 
+            lstat(argv[i], &mystat);
+
+            fp = -1;
+            if (S_ISDIR(mystat.st_mode))
+            {
+                pDir = opendir(argv[i]);
+            }
+            else if (S_ISREG(mystat.st_mode))
+            {
+                fp = open(argv[i], O_RDONLY, 0444);
+            }
+
+            if (pDir == NULL && fp == -1) 
             {
                 printf("lsal: cannot access '%s': No such file or directory\n", 
                     argv[i]);
@@ -60,9 +78,14 @@ int main (int argc, char *argv[])
         qsort(&argv[1], argc - 1, sizeof(char *), cmpstringp); // sorts argv
     }
 
+
+
+    /* 
+    * Print out directory stat information
+    */
     for (i = 0; i < argc; i++) 
     {
-        if (argc == 1) 
+        if (argc == 1 )//|| strcmp(argv[1], "*")) 
         {
             pDir = opendir("."); // open current directory
             // For alphabetical sorting of directories in current dir
@@ -72,28 +95,62 @@ int main (int argc, char *argv[])
         else 
         {
             if (i == 0) i = 1;  // if argc > 1, you want to start at index 1
-            pDir = opendir(argv[i]);
+            
+            fp = 0;
+            pDir = NULL;
+            lstat(argv[i], &mystat);
+
+            if (S_ISDIR(mystat.st_mode))
+            {
+                pDir = opendir(argv[i]);
+            }
+            else if (S_ISREG(mystat.st_mode))
+            {
+                fp = open(argv[i], 'r');
+            }
+            
             // For alphabetical sorting of directories
             n = scandir(argv[i], &namelist, NULL, alphasort);
         }
         
         // Continue if directory not found
-        if (pDir == NULL)
+        if (pDir == NULL && fp == -1) 
         {
             continue;   
         }
         else
         {
             // Print directory name
-            if (argc > 2) printf("%s:\n", argv[i]);
+            //if (S_ISDIR(mystat.st_mode)) printf("%s:\n", argv[i]);
             
             // Get format width for links and file size, get total
             formatWidthLink = getFormatWidth(buf, argv[i], namelist, mystat, n, 0);
             formatWidthSize = getFormatWidth(buf, argv[i], namelist, mystat, n, 1);
             total = getFormatWidth(buf, argv[i], namelist, mystat, n, 2);
 
-            // Print total blocks
-            printf("total %d\n", total);
+            // Print file
+            if (fp >= 0 && S_ISREG(mystat.st_mode)) // print normal if file
+            {
+                printf("%s %*ld %s %s %*ld %s %s", 
+                    getFilePermissions(mystat.st_mode),
+                    formatWidthLink,
+                    (long)mystat.st_nlink,
+                    getpwuid(mystat.st_uid)->pw_name,
+                    getgrgid(mystat.st_gid)->gr_name,
+                    formatWidthSize,
+                    (long)mystat.st_size,
+                    getLastModifiedTime(buf),
+                    argv[i]
+                );
+            }
+
+            if (pDir != NULL)
+            {
+                printf("%s:\n", argv[i]);
+                // Print total blocks
+                printf("total %d\n", total);
+
+            }
 
             // Print contents of directory
             for (j = 0; j < n; j++) 
@@ -102,10 +159,8 @@ int main (int argc, char *argv[])
                 mystat = emptystat;
                 lstat(buf, &mystat);
                 
-                #ifndef OS_Unix
-                if (namelist[j]->d_type == DT_DIR) // print blue if dir
+                if (S_ISDIR(mystat.st_mode)) //print blue
                 {
-                #endif
                     printf("%s %*ld %s %s %*ld %s %c[1;34m%s%c[0m", 
                         getFilePermissions(mystat.st_mode),
                         formatWidthLink,
@@ -119,12 +174,9 @@ int main (int argc, char *argv[])
                         namelist[j]->d_name,
                         27
                     );
-                #ifndef OS_Unix
                 }
-                #endif
 
-                #ifndef OS_Unix
-                if (namelist[j]->d_type == DT_REG) // print normal if file
+                if (S_ISREG(mystat.st_mode)) // print normal if file
                 {
                     printf("%s %*ld %s %s %*ld %s %s", 
                         getFilePermissions(mystat.st_mode),
@@ -139,18 +191,23 @@ int main (int argc, char *argv[])
                     );
                 }
 
-                if (namelist[j]->d_type == DT_DIR) printf("/");
-                #endif
-
+                if (S_ISDIR(mystat.st_mode)) 
+                    printf("/");
                 printf("\n");
-            }
-            if (i < argc-1-dirsNotFound) printf("\n");
-            free(namelist);
+            } 
+            if (i < argc-1-dirsNotFound)
+                printf("\n");
+            if (namelist[i] != NULL) free(namelist);
         }    
     }
 
-    
-    closedir(pDir);
+    //if (argc > 2)
+    //    free(namelist);
+    //if (pDir != NULL)
+        //closedir(pDir);
+    if (argc == 2)
+        printf("\n");
+
     return 0;
 }
 
