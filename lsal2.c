@@ -59,7 +59,7 @@ int main (int argc, char *argv[])
 
     for (i = 0; i < argc; i++) 
     {
-        if (argc == 1) 
+        if (argc == 1 )//|| strcmp(argv[1], "*")) 
         {
             pDir = opendir("."); // open current directory
             // For alphabetical sorting of directories in current dir
@@ -99,10 +99,10 @@ int main (int argc, char *argv[])
                 mystat = emptystat;
                 lstat(buf, &mystat);
                 
-                #ifndef OS_Unix
-                if (namelist[j]->d_type == DT_DIR) // print blue if dir
-                {
-                #endif
+                // #ifndef OS_Unix
+                // if (namelist[j]->d_type == DT_DIR) // print blue if dir
+                // {
+                // #endif
                     printf("%s %*ld %s %s %*ld %s %c[1;34m%s%c[0m", 
                         getFilePermissions(mystat.st_mode),
                         formatWidthLink,
@@ -116,28 +116,28 @@ int main (int argc, char *argv[])
                         namelist[j]->d_name,
                         27
                     );
-                #ifndef OS_Unix
-                }
-                #endif
+                // #ifndef OS_Unix
+                // }
+                // #endif
 
-                #ifndef OS_Unix
-                if (namelist[j]->d_type == DT_REG) // print normal if file
-                {
-                    printf("%s %*ld %s %s %*ld %s %s", 
-                        getFilePermissions(mystat.st_mode),
-                        formatWidthLink,
-                        (long)mystat.st_nlink,
-                        getpwuid(mystat.st_uid)->pw_name,
-                        getgrgid(mystat.st_gid)->gr_name,
-                        formatWidthSize,
-                        (long)mystat.st_size,
-                        getLastModifiedTime(buf),
-                        namelist[j]->d_name
-                    );
-                }
+                // #ifndef OS_Unix
+                // if (namelist[j]->d_type == DT_REG) // print normal if file
+                // {
+                //     printf("%s %*ld %s %s %*ld %s %s", 
+                //         getFilePermissions(mystat.st_mode),
+                //         formatWidthLink,
+                //         (long)mystat.st_nlink,
+                //         getpwuid(mystat.st_uid)->pw_name,
+                //         getgrgid(mystat.st_gid)->gr_name,
+                //         formatWidthSize,
+                //         (long)mystat.st_size,
+                //         getLastModifiedTime(buf),
+                //         namelist[j]->d_name
+                //     );
+                // }
 
-                if (namelist[j]->d_type == DT_DIR) printf("/");
-                #endif
+                // if (namelist[j]->d_type == DT_DIR) printf("/");
+                // #endif
                 
                 printf("\n");
             }
