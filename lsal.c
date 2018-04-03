@@ -369,7 +369,7 @@ const char* getLastModifiedTime(char *filePath)
     struct stat attrib;
     stat(filePath, &attrib);
     static char date[10] = {0};
-    strftime(date, 15, "%b %02d %H:%M", localtime(&(attrib.st_mtime)));
+    strftime(date, 15, "%b %d %H:%M", localtime(&(attrib.st_mtime)));
     return date;
 }
 
