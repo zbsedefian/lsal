@@ -180,7 +180,8 @@ int main (int argc, char *argv[])
 
             if (pDir != NULL)
             {
-                printf("%s:\n", argv[i]);
+                if (argc>2)
+                    printf("%s:\n", argv[i]);
                 // Print total blocks
                 printf("total %d\n", total);
 

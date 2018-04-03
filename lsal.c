@@ -145,7 +145,7 @@ int main (int argc, char *argv[])
 
                 if (strstr(getFilePermissions(mystat.st_mode), "x")) // print normal if file
                 {
-                    printf("%s %*ld %s %s %*ld %s %c[1;32m%s%c[0m*", 
+                    printf("%s %*ld %s %s %*ld %s %c[1;32m%s%c[0m", // add * 
                         getFilePermissions(mystat.st_mode),
                         formatWidthLink,
                         (long)mystat.st_nlink,
@@ -187,7 +187,8 @@ int main (int argc, char *argv[])
 
             if (pDir != NULL)
             {
-                printf("%s:\n", argv[i]);
+                if (argc>2)
+                    printf("%s:\n", argv[i]);
                 // Print total blocks
                 printf("total %d\n", total);
 
@@ -217,11 +218,11 @@ int main (int argc, char *argv[])
                         27
                     );
                 }
-                // print green if executable
+                //print green if executable 
                 else if (S_ISREG(mystat.st_mode) && 
                     strstr(getFilePermissions(mystat.st_mode), "x"))
                 {
-                    printf("%s %*ld %s %s %*ld %s %c[1;32m%s%c[0m*", 
+                    printf("%s %*ld %s %s %*ld %s %c[1;32m%s%c[0m", //add *  
                         getFilePermissions(mystat.st_mode),
                         formatWidthLink,
                         (long)mystat.st_nlink,
@@ -252,9 +253,9 @@ int main (int argc, char *argv[])
                 }
                 
 
-
-                if (S_ISDIR(mystat.st_mode)) 
-                    printf("/");
+                //broke this for unix
+                //if (S_ISDIR(mystat.st_mode)) 
+                //    printf("/");
                 printf("\n");
             } 
             if (i < argc-1-dirsNotFound || S_ISREG(mystat.st_mode))
@@ -269,8 +270,7 @@ int main (int argc, char *argv[])
         //closedir(pDir);
     // if (S_ISREG(mystat.st_mode))
     //     printf("\n");
-    // if (S_ISREG(mystat.st_mode))
-    //     printf("\n");
+
     return 0;
 }
 
@@ -319,8 +319,9 @@ int getFormatWidth( char* buf,
         }
     }
 
-    if (choice == 2)
-        return formatWidth / 2;
+    //this is for everything besides unix
+    //if (choice == 2)
+    //    return formatWidth / 2;
     return formatWidth;
 }
 
