@@ -1,0 +1,342 @@
+
+
+Test Case #1:
+Test Case 1: lsal compiled successfully.
+### Points: 2/2
+
+
+
+../../task2-test.sh: line 100:  8475 Segmentation fault      timeout 5 $PROGRAM > /dev/null 2>&1
+Test Case #2:
+
+--- /dev/fd/63	2018-05-05 03:28:43.112932308 -0400
++++ /dev/fd/62	2018-05-05 03:28:43.112932308 -0400
+@@ -0,0 +1,13 @@
++drwxr-xr-x 1 younes younes   182 May  5 03:28 .
++drwxr-xr-x 1 younes younes  1986 Apr 10 23:38 ..
++drwxr-xr-x 1 younes younes   138 Apr  6 00:47 .git
++-rwxr-xr-x 1 younes younes 13416 May  5 03:09 filegrep
++-rw-r--r-- 1 younes younes  2324 Apr  6 00:31 filegrep.c
++-rwxr-xr-x 1 younes younes 18120 May  5 03:09 lsal
++-rw-r--r-- 1 younes younes 12414 Apr  6 00:31 lsal.c
++-rwxr-xr-x 1 younes younes 18016 May  5 03:09 lsal2
++-rw-r--r-- 1 younes younes 12355 Apr  6 00:31 lsal2.c
++-rw-r--r-- 1 younes younes   195 Apr  6 00:31 makefile
++-rw-r--r-- 1 younes younes  8443 May  5 03:13 task1-log.txt
++-rw-r--r-- 1 younes younes   188 May  5 03:28 task2-log.txt
++-rw-r--r-- 1 younes younes   698 May  5 03:09 task4-log.txt
+
+Test Case 2 failed on: lsal (no input)
+### Points: 0/3
+
+
+
+Test Case #3:
+
+Test Case 3: passed.
+### Points: 2/2
+
+
+
+Test Case #4:
+
+Test Case 4: passed.
+### Points: 2/2
+
+
+
+Test Case #5:
+
+--- /dev/fd/63	2018-05-05 03:28:45.239603166 -0400
++++ /dev/fd/62	2018-05-05 03:28:45.239603166 -0400
+@@ -1,9 +1,8 @@
+-drwxr-xr-x 1 younes younes    192 May 04 20:57 [1;34m.[0m
+-drwxr-xr-x 1 younes younes    186 May 04 20:51 [1;34m..[0m
+--rwxr-xr-x 1 younes younes  39608 Apr 03 14:36 [1;32mplymouth[0m
+--rwxr-xr-x 1 younes younes  64080 Mar 08 12:51 [1;32msystemd-hwdb[0m
+--rwxr-xr-x 1 younes younes 281840 Mar 08 12:51 [1;32msystemd-inhibit[0m
+--rwxr-xr-x 1 younes younes  47544 Mar 08 12:51 [1;32msystemd-machine-id-setup[0m
+--rwxr-xr-x 1 younes younes  68032 Mar 08 12:51 [1;32msystemd-tty-ask-password-agent[0m
+--rwxr-xr-x 1 younes younes 449136 Mar 08 12:51 [1;32mudevadm[0m
+-
++drwxr-xr-x 1 younes younes    192 May  4 20:57 .
++drwxr-xr-x 1 younes younes    186 May  4 20:51 ..
++-rwxr-xr-x 1 younes younes  39608 Apr  3 14:36 plymouth
++-rwxr-xr-x 1 younes younes  64080 Mar  8 12:51 systemd-hwdb
++-rwxr-xr-x 1 younes younes 281840 Mar  8 12:51 systemd-inhibit
++-rwxr-xr-x 1 younes younes  47544 Mar  8 12:51 systemd-machine-id-setup
++-rwxr-xr-x 1 younes younes  68032 Mar  8 12:51 systemd-tty-ask-password-agent
++-rwxr-xr-x 1 younes younes 449136 Mar  8 12:51 udevadm
+
+Test Case 5 failed on: lsal ../../dir/FOLDER1
+### Points: 0/2
+
+
+
+Test Case #6:
+
+--- /dev/fd/63	2018-05-05 03:28:45.249603185 -0400
++++ /dev/fd/62	2018-05-05 03:28:45.249603185 -0400
+@@ -1,7 +1,6 @@
+-drwxr-xr-x 1 younes younes    114 May 04 20:58 [1;34m.[0m
+-drwxr-xr-x 1 younes younes    186 May 04 20:51 [1;34m..[0m
+--rwxr-xr-x 1 younes younes  39608 Apr 03 14:36 [1;32mplymouth[0m
+--rwxr-xr-x 1 younes younes  64080 Mar 08 12:51 [1;32msystemd-hwdb[0m
+--rwxr-xr-x 1 younes younes  68032 Mar 08 12:51 [1;32msystemd-tty-ask-password-agent[0m
+--rwxr-xr-x 1 younes younes 449136 Mar 08 12:51 [1;32mudevadm[0m
+-
++drwxr-xr-x 1 younes younes    114 May  4 20:58 .
++drwxr-xr-x 1 younes younes    186 May  4 20:51 ..
++-rwxr-xr-x 1 younes younes  39608 Apr  3 14:36 plymouth
++-rwxr-xr-x 1 younes younes  64080 Mar  8 12:51 systemd-hwdb
++-rwxr-xr-x 1 younes younes  68032 Mar  8 12:51 systemd-tty-ask-password-agent
++-rwxr-xr-x 1 younes younes 449136 Mar  8 12:51 udevadm
+
+Test Case 6 failed on: lsal ../../dir/lou_maketable.d
+### Points: 0/2
+
+
+
+Test Case #7:
+
+--- /dev/fd/63	2018-05-05 03:28:45.256269865 -0400
++++ /dev/fd/62	2018-05-05 03:28:45.256269865 -0400
+@@ -1,14 +1,14 @@
+-drwxr-xr-x 1 younes younes    186 May 04 20:51 [1;34m.[0m
+-drwxr-xr-x 1 younes younes    468 May 05 03:27 [1;34m..[0m
+--rw-r--r-- 1 younes younes 155726 Apr 04 14:03 directory-tree.png
++drwxr-xr-x 1 younes younes    186 May  4 20:51 .
++drwxr-xr-x 1 younes younes    468 May  5 03:27 ..
+ -rw-r--r-- 1 younes younes   1021 Apr 11 13:25 FILE1
+ -rw-r--r-- 1 younes younes   1125 Apr 11 13:27 FILE2
+ -rw-r--r-- 1 younes younes   1031 Apr 11 13:25 FILE3
+--rwxr-xr-x 1 younes younes   1101 Apr 11 13:27 [1;32mFILE4[0m
+-drwxr-xr-x 1 younes younes    192 May 04 20:57 [1;34mFOLDER1[0m
+-drwxr-xr-x 1 younes younes     30 May 04 20:52 [1;34mFOLDER2[0m
+-drwxr-xr-x 1 younes younes    114 May 04 20:58 [1;34mlou_maketable.d[0m
++-rwxr-xr-x 1 younes younes   1101 Apr 11 13:27 FILE4
++drwxr-xr-x 1 younes younes    192 May  4 20:57 FOLDER1
++drwxr-xr-x 1 younes younes     30 May  4 20:52 FOLDER2
++-rw-r--r-- 1 younes younes 155726 Apr  4 14:03 directory-tree.png
++drwxr-xr-x 1 younes younes    114 May  4 20:58 lou_maketable.d
+ -rw-r--r-- 1 younes younes     59 Apr 18 14:33 output
+ -rw-r--r-- 1 younes younes    224 Apr 18 14:48 test
+-drwxr-xr-x 1 younes younes      0 Apr 18 14:49 [1;34mtestt[0m
+-drwxr-xr-x 1 younes younes     70 May 04 20:51 [1;34mvendor_perl[0m
++drwxr-xr-x 1 younes younes      0 Apr 18 14:49 testt
++drwxr-xr-x 1 younes younes     70 May  4 20:51 vendor_perl
+
+Test Case 7 failed on: lsal ../../dir/.
+### Points: 0/2
+
+
+
+Test Case #8:
+
+--- /dev/fd/63	2018-05-05 03:28:45.266269885 -0400
++++ /dev/fd/62	2018-05-05 03:28:45.266269885 -0400
+@@ -1,19 +1,18 @@
+-drwxr-xr-x 1 younes younes     468 May 05 03:27 [1;34m.[0m
+-drwxr-xr-x 1 younes younes     204 May 05 02:57 [1;34m..[0m
+--rwxr-xr-x 1 younes younes    1205 May 05 01:55 [1;32mcalculator.sh[0m
+-drwxr-xr-x 1 younes younes     186 May 04 20:51 [1;34mdir[0m
+--rw-r--r-- 1 younes younes    3214 May 05 02:39 gc_2183-ICSI-402-1582_column_2018-05-05-02-13-55.csv
+--rw-r--r-- 1 younes younes 3116647 Apr 06 00:39 hw06-0.zip
+--rw-r--r-- 1 younes younes 3338060 Apr 09 15:13 hw06-1.zip
+--rw-r--r-- 1 younes younes 3292633 Apr 09 15:27 hw06-2.zip
+-drwxr-xr-x 1 younes younes    1986 Apr 10 23:38 [1;34mhw06-all[0m
++drwxr-xr-x 1 younes younes     468 May  5 03:27 .
++drwxr-xr-x 1 younes younes     204 May  5 02:57 ..
++-rw-r--r-- 1 younes younes    4182 May  5 01:43 List-full.csv
++-rwxr-xr-x 1 younes younes    1205 May  5 01:55 calculator.sh
++drwxr-xr-x 1 younes younes     186 May  4 20:51 dir
++-rw-r--r-- 1 younes younes    3214 May  5 02:39 gc_2183-ICSI-402-1582_column_2018-05-05-02-13-55.csv
++-rw-r--r-- 1 younes younes 3116647 Apr  6 00:39 hw06-0.zip
++-rw-r--r-- 1 younes younes 3338060 Apr  9 15:13 hw06-1.zip
++-rw-r--r-- 1 younes younes 3292633 Apr  9 15:27 hw06-2.zip
++drwxr-xr-x 1 younes younes    1986 Apr 10 23:38 hw06-all
+ -rw-r--r-- 1 younes younes 3155448 Apr 10 23:38 hw06-all.zip
+--rw-r--r-- 1 younes younes    3944 May 05 02:40 hw06-graded_list.csv
+--rw-r--r-- 1 younes younes 1666417 May 05 02:23 hw06-graded.zip
++-rw-r--r-- 1 younes younes 1666417 May  5 02:23 hw06-graded.zip
++-rw-r--r-- 1 younes younes    3944 May  5 02:40 hw06-graded_list.csv
+ -rw-r--r-- 1 younes younes      95 Apr 10 23:20 late-submissions
+--rw-r--r-- 1 younes younes    4182 May 05 01:43 List-full.csv
+--rwxr-xr-x 1 younes younes    4654 Apr 29 21:33 [1;32mtask1-test.sh[0m
+--rwxr-xr-x 1 younes younes    4904 May 05 01:57 [1;32mtask2-test.sh[0m
+--rwxr-xr-x 1 younes younes    3921 May 05 01:57 [1;32mtask3-test.sh[0m
+--rwxr-xr-x 1 younes younes    3052 May 05 03:07 [1;32mtask4-test.sh[0m
+-
++-rwxr-xr-x 1 younes younes    4654 Apr 29 21:33 task1-test.sh
++-rwxr-xr-x 1 younes younes    4904 May  5 01:57 task2-test.sh
++-rwxr-xr-x 1 younes younes    3921 May  5 01:57 task3-test.sh
++-rwxr-xr-x 1 younes younes    3052 May  5 03:07 task4-test.sh
+
+Test Case 8 failed on: lsal ../../dir/..
+### Points: 0/2
+
+
+
+Test Case #9:
+
+ls: cannot access '../../dir/FILE10': No such file or directory
+Test Case 9: passed.
+### Points: 2/2
+
+
+
+Test Case #10:
+
+Test Case 10: passed.
+### Points: 2/2
+
+
+
+Test Case #11:
+
+--- /dev/fd/63	2018-05-05 03:28:45.286269925 -0400
++++ /dev/fd/62	2018-05-05 03:28:45.286269925 -0400
+@@ -1,8 +1,7 @@
+-drwxr-xr-x 1 younes younes    66 Apr 18 15:48 [1;34m.[0m
+-drwxr-xr-x 1 younes younes    70 May 04 20:51 [1;34m..[0m
+--rwxr-xr-x 1 younes younes 29224 Jan 04 21:53 [1;32mh2ph[0m
+--rwxr-xr-x 1 younes younes 60866 Jan 04 21:53 [1;32mh2xs[0m
+--rwxr-xr-x 1 younes younes  4287 Jan 04 21:53 [1;32minstmodsh[0m
+--rwxr-xr-x 1 younes younes  3959 Jan 04 21:53 [1;32mjson_pp[0m
+--rwxr-xr-x 1 younes younes 15775 Jan 04 21:53 [1;32mlibnetcfg[0m
+-
++drwxr-xr-x 1 younes younes    66 Apr 18 15:48 .
++drwxr-xr-x 1 younes younes    70 May  4 20:51 ..
++-rwxr-xr-x 1 younes younes 29224 Jan  4 21:53 h2ph
++-rwxr-xr-x 1 younes younes 60866 Jan  4 21:53 h2xs
++-rwxr-xr-x 1 younes younes  4287 Jan  4 21:53 instmodsh
++-rwxr-xr-x 1 younes younes  3959 Jan  4 21:53 json_pp
++-rwxr-xr-x 1 younes younes 15775 Jan  4 21:53 libnetcfg
+
+Test Case 11 failed on: lsal ../../dir/vendor_perl/site_perl
+### Points: 0/2
+
+
+
+Test Case #12:
+
+Test Case 12: passed.
+### Points: 3/3
+
+
+
+Test Case #13:
+
+Test Case 13: passed.
+### Points: 2/2
+
+
+
+Test Case #14:
+
+Test Case 14: passed.
+### Points: 3/3
+
+
+
+Test Case #15:
+
+Test Case 15 failed on  Month , exit_status: 0
+input Apr
+### Points: 0/2
+
+
+
+Test Case #16:
+
+Test Case 16 failed on  Day , exit_status: 0
+input 11
+### Points: 0/2
+
+
+
+Test Case #17:
+
+Test Case 17 failed on  Time , exit_status: 0
+input 13:25
+### Points: 0/3
+
+
+
+Test Case #18:
+
+Test Case 18: passed.
+### Points: 2/2
+
+
+
+9 failures detected!
+>>>>> Task2 Total: 20/40
+
+
+
+
+
+
+
+
+>>> FILE1:
+
+Once upon a time, there lived an unhappy young girl. Unhappy she was, for her mother was dead, her father had married another woman, a widow with two daughters, and her stepmother didn’t like her one little bit. All the nice things, kind thoughts and loving touches were for her own daughters. And not just the kind thoughts and love, but also dresses, shoes, shawls, delicious food, comfy beds, as well as every home comfort. All this was laid on for her daughters. But, for the poor unhappy girl, there was nothing at all. No dresses, only her stepsisters’ hand-me-downs. No lovely dishes, nothing but scraps. No nice rests and comfort. For she had to work hard all day, and only when evening came was she allowed to sit for a while by the fire, near the cinders. That is how she got her nickname, for everybody called her Cinderella. used to spend long hours all alone talking to the cat. The cat said,
+ Meow , which really meant,  Cheer up! You have something neither of your stepsisters have and that is beauty. 
+
+
+>>> FILE2:
+
+CinderellaOnce upon a time, there lived an unhappy young girl.
+
+Unhappy she was, her mother was Sy3TPr0gr
+
+ dead, her father had married another woman, a widow with two daughters, and her stepmother didn’t like her one little bit. 
+All the nice things, kind thoughts and loving touches were her own daughters.
+And not just the kind thought
+
+s and love, but also SysTProgrr dresses, shoes, shawls, Sy3TPr0grr delicious food, Sy3TPr0grr, comfy beds, as well as every home comfort.
+All this was laid on her daughters. 
+
+
+But, the poor unhappy girl, there was nothing at all. No dresses, only her stepsisters’ hand-me-downs. 
+No lovely dishes, nothing but scraps. No nice rests and comfort. 
+she had to work hard all day, a
+
+
+nd only when evening SysTProgrrcame was she allowed to sit a while by the fire, near the Sy3TPr0grr cinders. 
+That is how she got her nickna
+
+
+me, everybody called her Cinderella. Cinderella used to spend long hours all alone talking to the cat. 
+
+
+The catSy3TP said,
+ Meow , which really meant,  Cheer up You have something neither of your Sy3TPr0grr stepsisters have and that is beauty. Cinderella
+
+
+>>> FILE3:
+
+Once upon a time, there lived an unhappy young girl. Unhappy she was, for her mother was dead, her father had married another woman, a widow with two daughters, and her stepmother didn’t like her one little bit. All the nice things, kind thoughts and loving touches were for her own daughters. And not just the kind thoughts and love, but also dresses, shoes, shawls, delicious food, comfy beds, as well as every home comfort. All this was laid on for her daughters. But, for the poor unhappy girl, there was nothing at all. No dresses, only her stepsisters’ hand-me-downs. No lovely dishes, nothing but scraps. No nice rests and comfort. For she had to work hard all day, and only when evening came was she allowed to sit for a while by the fire, near the cinders. That is how she got her nickname, for everybody called her Cinderella. Cinderella used to spend long hours all alone talking to the cat. The cat said,
+ Meow , which really meant,  Cheer up You have something neither of your stepsisters have and that is beauty. 
+
+
+>>> FILE4:
+
+Cinderella Once upon a time, there lived an unhappy young girl.
+
+Unhappy she was, her mother was Sy3TPr0gr dead, her father
+ had married another woman, a widow with two daughters, and her stepmother didn’t like her one little bit. 
+All the nice things, kind thoughts and loving touches were her own daughters.
+And not just the kind thoughts and love, but also SysTProgrr dresses, shoes, shawls, Sy3TPr0grr delicious food, Sy3TPr0grr, comfy beds, as well as every home comfort.
+All this was laid on her daughters. But, the poor unhappy girl, there was nothing at all. No dresses, only her stepsisters’ hand-me-downs. 
+No lovely dishes, nothing but scraps. No nice rests and comfort. 
+she had to work hard all day, and only when evening SysTProgrrcame was she allowed to sit a while by the fire, near the Sy3TPr0grr cinders. 
+That is how she got her nickname, everybody called her. Cinderella used to spend long hours all alone talking to the cat. 
+
+
+The catSy3TPrsaid,
+ Meow , which really meant, Cheer up You have something neither of your Sy3TPr0grrstepsisters have and that is beauty. Cinderella
+
+

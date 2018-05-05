@@ -1,0 +1,189 @@
+
+
+Test Case #1:
+Test Case 1: filegrep compiled successfully.
+
+### Points: 1/1
+
+
+
+Test Case #2:
+
+Test Case 2 passed
+### Points: 2/2
+
+
+
+Test Case #3:
+
+Test Case 3 passed
+### Points: 2/2
+
+
+
+Test Case #4:
+
+Test Case 4 passed
+### Points: 2/2
+
+
+
+Test Case #5:
+
+Test Case 5 failed on  not-existing file, FILE10 , stderr does not contain appropriate message
+### Points: 0/2
+
+
+
+Test Case #6:
+
+Test Case 6 passed
+
+### Points: 2/2
+
+
+
+Test Case #7:
+--- /dev/fd/63	2018-05-05 03:13:05.057296789 -0400
++++ /dev/fd/62	2018-05-05 03:13:05.057296789 -0400
+@@ -1,3 +1,3 @@
+ 1:CinderellaOnce upon a time, there lived an unhappy young girl.
+-13:me, everybody called her Cinderella. Cinderella used to spend long hours all alone talking to the cat. 
+-15: Meow , which really meant,  Cheer up You have something neither of your Sy3TPr0grr stepsisters have and that is beauty. Cinderella
++22:me, everybody called her Cinderella. Cinderella used to spend long hours all alone talking to the cat. 
++26: Meow , which really meant,  Cheer up You have something neither of your Sy3TPr0grr stepsisters have and that is beauty. Cinderella
+
+Test Case 7 failed on: filegrep  two inputs: Cinderella FILE2
+
+### Points: 0/2
+
+
+
+Test Case #8:
+
+Test Case 8 passed
+
+### Points: 2/2
+
+
+
+Test Case #9:
+--- /dev/fd/63	2018-05-05 03:13:05.077296845 -0400
++++ /dev/fd/62	2018-05-05 03:13:05.077296845 -0400
+@@ -1,3 +1,3 @@
+ 1:Cinderella Once upon a time, there lived an unhappy young girl.
+-9:That is how she got her nickname, everybody called her. Cinderella used to spend long hours all alone talking to the cat. 
+-11: Meow , which really meant, Cheer up You have something neither of your Sy3TPr0grrstepsisters have and that is beauty. Cinderella
++10:That is how she got her nickname, everybody called her. Cinderella used to spend long hours all alone talking to the cat. 
++14: Meow , which really meant, Cheer up You have something neither of your Sy3TPr0grrstepsisters have and that is beauty. Cinderella
+
+Test Case 9 failed on: filegrep  two inputs: Cinderella FILE4
+
+### Points: 0/2
+
+
+
+Test Case #10:
+--- /dev/fd/63	2018-05-05 03:13:05.083963530 -0400
++++ /dev/fd/62	2018-05-05 03:13:05.083963530 -0400
+@@ -1,3 +1,3 @@
+-6:s and love, but also SysTProgrr dresses, shoes, shawls, Sy3TPr0grr delicious food, Sy3TPr0grr, comfy beds, as well as every home comfort.
+-11:nd only when evening SysTProgrrcame was she allowed to sit a while by the fire, near the Sy3TPr0grr cinders. 
+-15: Meow , which really meant,  Cheer up You have something neither of your Sy3TPr0grr stepsisters have and that is beauty. Cinderella
++9:s and love, but also SysTProgrr dresses, shoes, shawls, Sy3TPr0grr delicious food, Sy3TPr0grr, comfy beds, as well as every home comfort.
++18:nd only when evening SysTProgrrcame was she allowed to sit a while by the fire, near the Sy3TPr0grr cinders. 
++26: Meow , which really meant,  Cheer up You have something neither of your Sy3TPr0grr stepsisters have and that is beauty. Cinderella
+
+Test Case 10 failed on: filegrep  two inputs: Sy3TPr0grr FILE2
+
+### Points: 0/1.5
+
+
+
+Test Case #11:
+--- /dev/fd/63	2018-05-05 03:13:05.090630216 -0400
++++ /dev/fd/62	2018-05-05 03:13:05.090630216 -0400
+@@ -1,3 +1,3 @@
+-6:s and love, but also SysTProgrr dresses, shoes, shawls, Sy3TPr0grr delicious food, Sy3TPr0grr, comfy beds, as well as every home comfort.
+-11:nd only when evening SysTProgrrcame was she allowed to sit a while by the fire, near the Sy3TPr0grr cinders. 
+-15: Meow , which really meant,  Cheer up You have something neither of your Sy3TPr0grr stepsisters have and that is beauty. Cinderella
++9:s and love, but also SysTProgrr dresses, shoes, shawls, Sy3TPr0grr delicious food, Sy3TPr0grr, comfy beds, as well as every home comfort.
++18:nd only when evening SysTProgrrcame was she allowed to sit a while by the fire, near the Sy3TPr0grr cinders. 
++26: Meow , which really meant,  Cheer up You have something neither of your Sy3TPr0grr stepsisters have and that is beauty. Cinderella
+
+Test Case 11 failed on: filegrep  two inputs: Sy3TPr0grr FILE2
+
+### Points: 0/1.5
+
+
+
+1 failures detected!
+>>>>> Task1 Total: 11/20
+
+
+
+
+
+
+
+
+>>> FILE1:
+
+Once upon a time, there lived an unhappy young girl. Unhappy she was, for her mother was dead, her father had married another woman, a widow with two daughters, and her stepmother didn’t like her one little bit. All the nice things, kind thoughts and loving touches were for her own daughters. And not just the kind thoughts and love, but also dresses, shoes, shawls, delicious food, comfy beds, as well as every home comfort. All this was laid on for her daughters. But, for the poor unhappy girl, there was nothing at all. No dresses, only her stepsisters’ hand-me-downs. No lovely dishes, nothing but scraps. No nice rests and comfort. For she had to work hard all day, and only when evening came was she allowed to sit for a while by the fire, near the cinders. That is how she got her nickname, for everybody called her Cinderella. used to spend long hours all alone talking to the cat. The cat said,
+ Meow , which really meant,  Cheer up! You have something neither of your stepsisters have and that is beauty. 
+
+
+>>> FILE2:
+
+CinderellaOnce upon a time, there lived an unhappy young girl.
+
+Unhappy she was, her mother was Sy3TPr0gr
+
+ dead, her father had married another woman, a widow with two daughters, and her stepmother didn’t like her one little bit. 
+All the nice things, kind thoughts and loving touches were her own daughters.
+And not just the kind thought
+
+s and love, but also SysTProgrr dresses, shoes, shawls, Sy3TPr0grr delicious food, Sy3TPr0grr, comfy beds, as well as every home comfort.
+All this was laid on her daughters. 
+
+
+But, the poor unhappy girl, there was nothing at all. No dresses, only her stepsisters’ hand-me-downs. 
+No lovely dishes, nothing but scraps. No nice rests and comfort. 
+she had to work hard all day, a
+
+
+nd only when evening SysTProgrrcame was she allowed to sit a while by the fire, near the Sy3TPr0grr cinders. 
+That is how she got her nickna
+
+
+me, everybody called her Cinderella. Cinderella used to spend long hours all alone talking to the cat. 
+
+
+The catSy3TP said,
+ Meow , which really meant,  Cheer up You have something neither of your Sy3TPr0grr stepsisters have and that is beauty. Cinderella
+
+
+>>> FILE3:
+
+Once upon a time, there lived an unhappy young girl. Unhappy she was, for her mother was dead, her father had married another woman, a widow with two daughters, and her stepmother didn’t like her one little bit. All the nice things, kind thoughts and loving touches were for her own daughters. And not just the kind thoughts and love, but also dresses, shoes, shawls, delicious food, comfy beds, as well as every home comfort. All this was laid on for her daughters. But, for the poor unhappy girl, there was nothing at all. No dresses, only her stepsisters’ hand-me-downs. No lovely dishes, nothing but scraps. No nice rests and comfort. For she had to work hard all day, and only when evening came was she allowed to sit for a while by the fire, near the cinders. That is how she got her nickname, for everybody called her Cinderella. Cinderella used to spend long hours all alone talking to the cat. The cat said,
+ Meow , which really meant,  Cheer up You have something neither of your stepsisters have and that is beauty. 
+
+
+>>> FILE4:
+
+Cinderella Once upon a time, there lived an unhappy young girl.
+
+Unhappy she was, her mother was Sy3TPr0gr dead, her father
+ had married another woman, a widow with two daughters, and her stepmother didn’t like her one little bit. 
+All the nice things, kind thoughts and loving touches were her own daughters.
+And not just the kind thoughts and love, but also SysTProgrr dresses, shoes, shawls, Sy3TPr0grr delicious food, Sy3TPr0grr, comfy beds, as well as every home comfort.
+All this was laid on her daughters. But, the poor unhappy girl, there was nothing at all. No dresses, only her stepsisters’ hand-me-downs. 
+No lovely dishes, nothing but scraps. No nice rests and comfort. 
+she had to work hard all day, and only when evening SysTProgrrcame was she allowed to sit a while by the fire, near the Sy3TPr0grr cinders. 
+That is how she got her nickname, everybody called her. Cinderella used to spend long hours all alone talking to the cat. 
+
+
+The catSy3TPrsaid,
+ Meow , which really meant, Cheer up You have something neither of your Sy3TPr0grrstepsisters have and that is beauty. Cinderella
+
+

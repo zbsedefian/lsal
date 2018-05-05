@@ -1,0 +1,314 @@
+
+
+Test Case #1:
+Test Case 1: lsal2 compiled successfully.
+
+### Points: 1/1
+
+
+
+Test Case #2:
+ls: cannot access '': No such file or directory
+--- /dev/fd/63	2018-05-05 03:37:05.990608792 -0400
++++ /dev/fd/62	2018-05-05 03:37:05.990608792 -0400
+@@ -1,20 +1,17 @@
+-
+-../../dir/FOLDER1:
+-total 1872
+-drwxr-xr-x 1 younes younes    192 May 04 20:57 [1;34m.[0m
+-drwxr-xr-x 1 younes younes    186 May 04 20:51 [1;34m..[0m
+--rwxr-xr-x 1 younes younes  39608 Apr 03 14:36 [1;32mplymouth[0m
+--rwxr-xr-x 1 younes younes  64080 Mar 08 12:51 [1;32msystemd-hwdb[0m
+--rwxr-xr-x 1 younes younes 281840 Mar 08 12:51 [1;32msystemd-inhibit[0m
+--rwxr-xr-x 1 younes younes  47544 Mar 08 12:51 [1;32msystemd-machine-id-setup[0m
+--rwxr-xr-x 1 younes younes  68032 Mar 08 12:51 [1;32msystemd-tty-ask-password-agent[0m
+--rwxr-xr-x 1 younes younes 449136 Mar 08 12:51 [1;32mudevadm[0m
++total 936
++drwxr-xr-x 1 younes younes    192 May  4 20:57 .
++drwxr-xr-x 1 younes younes    186 May  4 20:51 ..
++-rwxr-xr-x 1 younes younes  39608 Apr  3 14:36 plymouth
++-rwxr-xr-x 1 younes younes  64080 Mar  8 12:51 systemd-hwdb
++-rwxr-xr-x 1 younes younes 281840 Mar  8 12:51 systemd-inhibit
++-rwxr-xr-x 1 younes younes  47544 Mar  8 12:51 systemd-machine-id-setup
++-rwxr-xr-x 1 younes younes  68032 Mar  8 12:51 systemd-tty-ask-password-agent
++-rwxr-xr-x 1 younes younes 449136 Mar  8 12:51 udevadm
+ 
+ ../../dir/FOLDER2:
+-total 24
+-drwxr-xr-x 1 younes younes  30 May 04 20:52 [1;34m.[0m
+-drwxr-xr-x 1 younes younes 186 May 04 20:51 [1;34m..[0m
+--rw-r--r-- 1 younes younes   5 May 04 18:40 active
+--rw-r--r-- 1 younes younes   4 May 04 18:40 dev
+--rw-r--r-- 1 younes younes  29 May 04 18:40 uevent
+-
++total 12
++drwxr-xr-x 1 younes younes  30 May  4 20:52 .
++drwxr-xr-x 1 younes younes 186 May  4 20:51 ..
++-rw-r--r-- 1 younes younes   5 May  4 18:40 active
++-rw-r--r-- 1 younes younes   4 May  4 18:40 dev
++-rw-r--r-- 1 younes younes  29 May  4 18:40 uevent
+
+Test Case 2 failed on: lsal2  two input folders
+
+### Points: 0/1.5
+
+
+
+Test Case #3:
+ls: cannot access '': No such file or directory
+--- /dev/fd/63	2018-05-05 03:37:06.003942153 -0400
++++ /dev/fd/62	2018-05-05 03:37:06.003942153 -0400
+@@ -1,12 +1,11 @@
+--rw-r--r-- 1 younes younes  1021 Dec 31 19:00 ../../dir/FILE1
+-../../dir/FOLDER1:
+-total 1872
+-drwxr-xr-x 1 younes younes    192 May 04 20:57 [1;34m.[0m
+-drwxr-xr-x 1 younes younes    186 May 04 20:51 [1;34m..[0m
+--rwxr-xr-x 1 younes younes  39608 Apr 03 14:36 [1;32mplymouth[0m
+--rwxr-xr-x 1 younes younes  64080 Mar 08 12:51 [1;32msystemd-hwdb[0m
+--rwxr-xr-x 1 younes younes 281840 Mar 08 12:51 [1;32msystemd-inhibit[0m
+--rwxr-xr-x 1 younes younes  47544 Mar 08 12:51 [1;32msystemd-machine-id-setup[0m
+--rwxr-xr-x 1 younes younes  68032 Mar 08 12:51 [1;32msystemd-tty-ask-password-agent[0m
+--rwxr-xr-x 1 younes younes 449136 Mar 08 12:51 [1;32mudevadm[0m
+ 
++../../dir/FOLDER1:
++total 936
++drwxr-xr-x 1 younes younes    192 May  4 20:57 .
++drwxr-xr-x 1 younes younes    186 May  4 20:51 ..
++-rwxr-xr-x 1 younes younes  39608 Apr  3 14:36 plymouth
++-rwxr-xr-x 1 younes younes  64080 Mar  8 12:51 systemd-hwdb
++-rwxr-xr-x 1 younes younes 281840 Mar  8 12:51 systemd-inhibit
++-rwxr-xr-x 1 younes younes  47544 Mar  8 12:51 systemd-machine-id-setup
++-rwxr-xr-x 1 younes younes  68032 Mar  8 12:51 systemd-tty-ask-password-agent
++-rwxr-xr-x 1 younes younes 449136 Mar  8 12:51 udevadm
+
+Test Case 3 failed on: lsal2  one file and one folder
+
+### Points: 0/1.5
+
+
+
+Test Case #4:
+ls: cannot access '': No such file or directory
+--- /dev/fd/63	2018-05-05 03:37:06.013942173 -0400
++++ /dev/fd/62	2018-05-05 03:37:06.013942173 -0400
+@@ -1,2 +1 @@
+--rw-r--r-- 1 younes younes  1021 Dec 31 19:00 ../../dir/FILE1
+--rw-r--r-- 1 younes younes  1125 Dec 31 20:08 ../../dir/FILE2
++-rw-r--r-- 1 younes younes 1125 Apr 11 13:27 ../../dir/FILE2
+
+Test Case 4 failed on: lsal2  two input files
+
+### Points: 0/1.5
+
+
+
+Test Case #5:
+--- /dev/fd/63	2018-05-05 03:37:06.027275534 -0400
++++ /dev/fd/62	2018-05-05 03:37:06.027275534 -0400
+@@ -1,19 +1,19 @@
++
+ ../../dir/FOLDER1:
+-total 1872
+-drwxr-xr-x 1 younes younes    192 May 04 20:57 [1;34m.[0m
+-drwxr-xr-x 1 younes younes    186 May 04 20:51 [1;34m..[0m
+--rwxr-xr-x 1 younes younes  39608 Apr 03 14:36 [1;32mplymouth[0m
+--rwxr-xr-x 1 younes younes  64080 Mar 08 12:51 [1;32msystemd-hwdb[0m
+--rwxr-xr-x 1 younes younes 281840 Mar 08 12:51 [1;32msystemd-inhibit[0m
+--rwxr-xr-x 1 younes younes  47544 Mar 08 12:51 [1;32msystemd-machine-id-setup[0m
+--rwxr-xr-x 1 younes younes  68032 Mar 08 12:51 [1;32msystemd-tty-ask-password-agent[0m
+--rwxr-xr-x 1 younes younes 449136 Mar 08 12:51 [1;32mudevadm[0m
++total 936
++drwxr-xr-x 1 younes younes    192 May  4 20:57 .
++drwxr-xr-x 1 younes younes    186 May  4 20:51 ..
++-rwxr-xr-x 1 younes younes  39608 Apr  3 14:36 plymouth
++-rwxr-xr-x 1 younes younes  64080 Mar  8 12:51 systemd-hwdb
++-rwxr-xr-x 1 younes younes 281840 Mar  8 12:51 systemd-inhibit
++-rwxr-xr-x 1 younes younes  47544 Mar  8 12:51 systemd-machine-id-setup
++-rwxr-xr-x 1 younes younes  68032 Mar  8 12:51 systemd-tty-ask-password-agent
++-rwxr-xr-x 1 younes younes 449136 Mar  8 12:51 udevadm
+ 
+ ../../dir/FOLDER2:
+-total 24
+-drwxr-xr-x 1 younes younes  30 May 04 20:52 [1;34m.[0m
+-drwxr-xr-x 1 younes younes 186 May 04 20:51 [1;34m..[0m
+--rw-r--r-- 1 younes younes   5 May 04 18:40 active
+--rw-r--r-- 1 younes younes   4 May 04 18:40 dev
+--rw-r--r-- 1 younes younes  29 May 04 18:40 uevent
+-
++total 12
++drwxr-xr-x 1 younes younes  30 May  4 20:52 .
++drwxr-xr-x 1 younes younes 186 May  4 20:51 ..
++-rw-r--r-- 1 younes younes   5 May  4 18:40 active
++-rw-r--r-- 1 younes younes   4 May  4 18:40 dev
++-rw-r--r-- 1 younes younes  29 May  4 18:40 uevent
+
+Test Case 5 failed on: lsal2  two folders and one file
+
+### Points: 0/1.5
+
+
+
+Test Case #6:
+--- /dev/fd/63	2018-05-05 03:37:06.037275554 -0400
++++ /dev/fd/62	2018-05-05 03:37:06.037275554 -0400
+@@ -1,47 +1,48 @@
+--rw-r--r-- 1 younes younes   1125 Dec 31 20:08 ../../dir/FILE2
+--rw-r--r-- 1 younes younes   1031 Dec 31 20:08 ../../dir/FILE3
+--rwxr-xr-x 1 younes younes   1101 Dec 31 20:08 [1;32m../../dir/FILE4[0m
++-rw-r--r-- 1 younes younes   1125 Apr 11 13:27 ../../dir/FILE2
++-rw-r--r-- 1 younes younes   1031 Apr 11 13:25 ../../dir/FILE3
++-rwxr-xr-x 1 younes younes   1101 Apr 11 13:27 ../../dir/FILE4
++-rw-r--r-- 1 younes younes 155726 Apr  4 14:03 ../../dir/directory-tree.png
++-rw-r--r-- 1 younes younes     59 Apr 18 14:33 ../../dir/output
++-rw-r--r-- 1 younes younes    224 Apr 18 14:48 ../../dir/test
++
+ ../../dir/FOLDER1:
+-total 1872
+-drwxr-xr-x 1 younes younes    192 May 04 20:57 [1;34m.[0m
+-drwxr-xr-x 1 younes younes    186 May 04 20:51 [1;34m..[0m
+--rwxr-xr-x 1 younes younes  39608 Apr 03 14:36 [1;32mplymouth[0m
+--rwxr-xr-x 1 younes younes  64080 Mar 08 12:51 [1;32msystemd-hwdb[0m
+--rwxr-xr-x 1 younes younes 281840 Mar 08 12:51 [1;32msystemd-inhibit[0m
+--rwxr-xr-x 1 younes younes  47544 Mar 08 12:51 [1;32msystemd-machine-id-setup[0m
+--rwxr-xr-x 1 younes younes  68032 Mar 08 12:51 [1;32msystemd-tty-ask-password-agent[0m
+--rwxr-xr-x 1 younes younes 449136 Mar 08 12:51 [1;32mudevadm[0m
++total 936
++drwxr-xr-x 1 younes younes    192 May  4 20:57 .
++drwxr-xr-x 1 younes younes    186 May  4 20:51 ..
++-rwxr-xr-x 1 younes younes  39608 Apr  3 14:36 plymouth
++-rwxr-xr-x 1 younes younes  64080 Mar  8 12:51 systemd-hwdb
++-rwxr-xr-x 1 younes younes 281840 Mar  8 12:51 systemd-inhibit
++-rwxr-xr-x 1 younes younes  47544 Mar  8 12:51 systemd-machine-id-setup
++-rwxr-xr-x 1 younes younes  68032 Mar  8 12:51 systemd-tty-ask-password-agent
++-rwxr-xr-x 1 younes younes 449136 Mar  8 12:51 udevadm
+ 
+ ../../dir/FOLDER2:
+-total 24
+-drwxr-xr-x 1 younes younes  30 May 04 20:52 [1;34m.[0m
+-drwxr-xr-x 1 younes younes 186 May 04 20:51 [1;34m..[0m
+--rw-r--r-- 1 younes younes   5 May 04 18:40 active
+--rw-r--r-- 1 younes younes   4 May 04 18:40 dev
+--rw-r--r-- 1 younes younes  29 May 04 18:40 uevent
++total 12
++drwxr-xr-x 1 younes younes  30 May  4 20:52 .
++drwxr-xr-x 1 younes younes 186 May  4 20:51 ..
++-rw-r--r-- 1 younes younes   5 May  4 18:40 active
++-rw-r--r-- 1 younes younes   4 May  4 18:40 dev
++-rw-r--r-- 1 younes younes  29 May  4 18:40 uevent
+ 
+--rw-r--r-- 1 younes younes 155726 May 04 18:40 ../../dir/directory-tree.png
+ ../../dir/lou_maketable.d:
+-total 1224
+-drwxr-xr-x 1 younes younes    114 May 04 20:58 [1;34m.[0m
+-drwxr-xr-x 1 younes younes    186 May 04 20:51 [1;34m..[0m
+--rwxr-xr-x 1 younes younes  39608 Apr 03 14:36 [1;32mplymouth[0m
+--rwxr-xr-x 1 younes younes  64080 Mar 08 12:51 [1;32msystemd-hwdb[0m
+--rwxr-xr-x 1 younes younes  68032 Mar 08 12:51 [1;32msystemd-tty-ask-password-agent[0m
+--rwxr-xr-x 1 younes younes 449136 Mar 08 12:51 [1;32mudevadm[0m
++total 612
++drwxr-xr-x 1 younes younes    114 May  4 20:58 .
++drwxr-xr-x 1 younes younes    186 May  4 20:51 ..
++-rwxr-xr-x 1 younes younes  39608 Apr  3 14:36 plymouth
++-rwxr-xr-x 1 younes younes  64080 Mar  8 12:51 systemd-hwdb
++-rwxr-xr-x 1 younes younes  68032 Mar  8 12:51 systemd-tty-ask-password-agent
++-rwxr-xr-x 1 younes younes 449136 Mar  8 12:51 udevadm
+ 
+--rw-r--r-- 1 younes younes     59 Mar 08 12:51 ../../dir/output
+--rw-r--r-- 1 younes younes    224 Mar 08 12:51 ../../dir/test
+ ../../dir/testt:
+ total 0
+-drwxr-xr-x 1 younes younes   0 Apr 18 14:49 [1;34m.[0m
+-drwxr-xr-x 1 younes younes 186 May 04 20:51 [1;34m..[0m
++drwxr-xr-x 1 younes younes   0 Apr 18 14:49 .
++drwxr-xr-x 1 younes younes 186 May  4 20:51 ..
+ 
+ ../../dir/vendor_perl:
+-total 40
+-drwxr-xr-x 1 younes younes   70 May 04 20:51 [1;34m.[0m
+-drwxr-xr-x 1 younes younes  186 May 04 20:51 [1;34m..[0m
+--r-xr-xr-x 1 younes younes 1380 Mar 19 23:29 [1;32mdbilogstrip[0m
+--r-xr-xr-x 1 younes younes 6206 Mar 19 23:29 [1;32mdbiprof[0m
+--r-xr-xr-x 1 younes younes 5394 Mar 19 23:29 [1;32mdbiproxy[0m
+-drwxr-xr-x 1 younes younes   66 Apr 18 15:48 [1;34msite_perl[0m
++total 20
++drwxr-xr-x 1 younes younes   70 May  4 20:51 .
++drwxr-xr-x 1 younes younes  186 May  4 20:51 ..
++-r-xr-xr-x 1 younes younes 1380 Mar 19 23:29 dbilogstrip
++-r-xr-xr-x 1 younes younes 6206 Mar 19 23:29 dbiprof
++-r-xr-xr-x 1 younes younes 5394 Mar 19 23:29 dbiproxy
++drwxr-xr-x 1 younes younes   66 Apr 18 15:48 site_perl
+
+Test Case 6 failed on: lsal2 *
+
+### Points: 0/1.5
+
+
+
+Test Case #7:
+--- /dev/fd/63	2018-05-05 03:37:06.043942235 -0400
++++ /dev/fd/62	2018-05-05 03:37:06.047275575 -0400
+@@ -1,2 +1,2 @@
+--rw-r--r-- 1 younes younes  1125 Dec 31 20:08 ../../dir/FILE2
+--rw-r--r-- 1 younes younes  1031 Dec 31 20:08 ../../dir/FILE3
++-rw-r--r-- 1 younes younes 1125 Apr 11 13:27 ../../dir/FILE2
++-rw-r--r-- 1 younes younes 1031 Apr 11 13:25 ../../dir/FILE3
+
+Test Case 7 failed on: lsal2  three files
+
+### Points: 0/1.5
+
+
+
+6 failures detected!
+>>>>> Task3 Total: 1/10
+
+
+
+
+
+
+
+
+>>> FILE1:
+
+Once upon a time, there lived an unhappy young girl. Unhappy she was, for her mother was dead, her father had married another woman, a widow with two daughters, and her stepmother didn’t like her one little bit. All the nice things, kind thoughts and loving touches were for her own daughters. And not just the kind thoughts and love, but also dresses, shoes, shawls, delicious food, comfy beds, as well as every home comfort. All this was laid on for her daughters. But, for the poor unhappy girl, there was nothing at all. No dresses, only her stepsisters’ hand-me-downs. No lovely dishes, nothing but scraps. No nice rests and comfort. For she had to work hard all day, and only when evening came was she allowed to sit for a while by the fire, near the cinders. That is how she got her nickname, for everybody called her Cinderella. used to spend long hours all alone talking to the cat. The cat said,
+ Meow , which really meant,  Cheer up! You have something neither of your stepsisters have and that is beauty. 
+
+
+>>> FILE2:
+
+CinderellaOnce upon a time, there lived an unhappy young girl.
+
+Unhappy she was, her mother was Sy3TPr0gr
+
+ dead, her father had married another woman, a widow with two daughters, and her stepmother didn’t like her one little bit. 
+All the nice things, kind thoughts and loving touches were her own daughters.
+And not just the kind thought
+
+s and love, but also SysTProgrr dresses, shoes, shawls, Sy3TPr0grr delicious food, Sy3TPr0grr, comfy beds, as well as every home comfort.
+All this was laid on her daughters. 
+
+
+But, the poor unhappy girl, there was nothing at all. No dresses, only her stepsisters’ hand-me-downs. 
+No lovely dishes, nothing but scraps. No nice rests and comfort. 
+she had to work hard all day, a
+
+
+nd only when evening SysTProgrrcame was she allowed to sit a while by the fire, near the Sy3TPr0grr cinders. 
+That is how she got her nickna
+
+
+me, everybody called her Cinderella. Cinderella used to spend long hours all alone talking to the cat. 
+
+
+The catSy3TP said,
+ Meow , which really meant,  Cheer up You have something neither of your Sy3TPr0grr stepsisters have and that is beauty. Cinderella
+
+
+>>> FILE3:
+
+Once upon a time, there lived an unhappy young girl. Unhappy she was, for her mother was dead, her father had married another woman, a widow with two daughters, and her stepmother didn’t like her one little bit. All the nice things, kind thoughts and loving touches were for her own daughters. And not just the kind thoughts and love, but also dresses, shoes, shawls, delicious food, comfy beds, as well as every home comfort. All this was laid on for her daughters. But, for the poor unhappy girl, there was nothing at all. No dresses, only her stepsisters’ hand-me-downs. No lovely dishes, nothing but scraps. No nice rests and comfort. For she had to work hard all day, and only when evening came was she allowed to sit for a while by the fire, near the cinders. That is how she got her nickname, for everybody called her Cinderella. Cinderella used to spend long hours all alone talking to the cat. The cat said,
+ Meow , which really meant,  Cheer up You have something neither of your stepsisters have and that is beauty. 
+
+

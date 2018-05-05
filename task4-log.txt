@@ -1,0 +1,29 @@
+=== Redudant files removed successfully.
+
+gcc -o filegrep filegrep.c
+gcc lsal.c -lm -o lsal
+gcc lsal2.c -lm -o lsal2
+>>> Test Case 1: "makefile" ran without any errors
+### Points: 1/1
+
+make: Nothing to be done for 'all'.
+>>> Test Case 2: "make all" created all executables successfully
+### Points: 3/3
+
+=== Redudant files removed successfully.
+
+gcc -o filegrep filegrep.c
+>>> Test Case 3: makefile compiled "filegrep.c" successfully
+### Points: 2/2
+
+gcc lsal.c -lm -o lsal
+>>> Test Case 4: makefile compiled "lsal.c" successfully
+### Points: 2/2
+
+gcc lsal2.c -lm -o lsal2
+>>> Test Case 5: makefile compiled "lsal2.c" successfully
+### Points: 2/2
+
+All tests were successful!
+>>> Task4 Total: 10/10
+
