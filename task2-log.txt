@@ -70,7 +70,7 @@ Test Case #5:
 
 Test Case 5 failed on: lsal ../../dir/FOLDER1
 ### Points: 0/2
-
+### Manually checked --- Points: 2/2
 
 
 Test Case #6:
@@ -94,7 +94,7 @@ Test Case #6:
 
 Test Case 6 failed on: lsal ../../dir/lou_maketable.d
 ### Points: 0/2
-
+### Manually checked --- Points: 2/2
 
 
 Test Case #7:
@@ -128,7 +128,7 @@ Test Case #7:
 
 Test Case 7 failed on: lsal ../../dir/.
 ### Points: 0/2
-
+### Manually checked --- Points: 2/2
 
 
 Test Case #8:
@@ -174,7 +174,7 @@ Test Case #8:
 
 Test Case 8 failed on: lsal ../../dir/..
 ### Points: 0/2
-
+### Manually checked --- Points: 2/2
 
 
 Test Case #9:
@@ -215,7 +215,7 @@ Test Case #11:
 
 Test Case 11 failed on: lsal ../../dir/vendor_perl/site_perl
 ### Points: 0/2
-
+### Manually checked --- Points: 2/2
 
 
 Test Case #12:
@@ -272,7 +272,7 @@ Test Case 18: passed.
 
 9 failures detected!
 >>>>> Task2 Total: 20/40
-
+### Manually checked --- >>>>> Task2 Total: 30/40
 
 
 

@@ -51,7 +51,7 @@ ls: cannot access '': No such file or directory
 Test Case 2 failed on: lsal2  two input folders
 
 ### Points: 0/1.5
-
+### Manually checked --- Points: 1.5/1.5
 
 
 Test Case #3:
@@ -262,7 +262,7 @@ Test Case 7 failed on: lsal2  three files
 
 6 failures detected!
 >>>>> Task3 Total: 1/10
-
+### Manually checked --- Task3 Total: 2.5/10
 
 
 
